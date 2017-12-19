@@ -1,0 +1,21 @@
+Infos pour MongoDB:
+
+//télécharger le fichier .msi sur le site MongoDB
+
+//installer mongodb en double cliquant sur le fichier .msi
+
+//creer un repertoire data : exemple "md \data\db"
+
+//start "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" pour lancer le moteur de base de donnees
+Tu dois avoir [initandlisten] waiting for connections on port 27017
+
+//start "C:\Program Files\MongoDB\Server\3.6\bin\mongo.exe" qui est l'interpreteur de commandes
+
+Pour importer ton fichier json dans une collection, tu dois creer ta base de donnees ("use db_test")
+et depuis un autre terminal ouvert dans C:\Pro...\bin\ envoyer la commande suivante: 
+
+$ mongoimport --db db_test --collection sondages --drop --file 
+"C:\le_chemin_de_ton_fichier_json\sondages.json"
+
+
+
