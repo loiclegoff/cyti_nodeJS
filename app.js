@@ -3,9 +3,9 @@ var http = require("http");
 var mongoose = require('mongoose');
 var CONFIG = require("./config.json");
 process.env.CONFIG = JSON.stringify(CONFIG);
-const SurveyModel = require('./app/models/survey');
-
-
+const QuestionModel = require('./app/models/survey');
+const AnswersUserModel = require('./app/models/schema_answers_user');
+const UserModel = require('./app/models/schema_user');
 var app = express();
 
 app.get('/', function(req, res){
@@ -28,21 +28,29 @@ app.get('/sondages', function(req, res){
         if (err) { throw err; }
     });
 
-
     //On creer une instance de notre model pour creer un nouveau document
-    var monSondage = new SurveyModel({title: "Les habitudes matinales côté make-up"});
-    monSondage.theme="beauty";
+    var maquestion = new QuestionModel({
+        id_question: new mongoose.Schema.Types.ObjectId(),
+        id_survey:"2",
+        txt:"Aimes-tu la bière ? ",
+        type:true}
+    );
+
+
 
     //pour persister donnees dans MongoDB
-    monSondage.save(function (err) {
+    maquestion.save(function (err) {
         if (err) { throw err; }
-        console.log('Ajout title avec succès !');
+        console.log('Ajout question !');
 
         mongoose.connection.close();
+
+        console.log('coucou');
     })
 
 
-    //pour afficher collection dans logs
+
+     //pour afficher collection dans logs
     /*SurveyModel.find(null, function (err, comms) {
      if (err) { throw err; }
      // comms est un tableau de hash
