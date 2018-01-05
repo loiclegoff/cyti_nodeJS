@@ -1,0 +1,233 @@
+{
+  "id_user" : "0",
+  "name" : "johnDoe",
+  "surveys" : {
+    "0": {
+      "id_survey" : "0",
+      "title" : "Sondage Beauté",
+      "description" : "sondage de beaute",
+      "start_date" : "15/12/17",
+      "end_date" : "15/01/17",
+      "survey_type" : "fun",
+      "theme" : "beauty",
+      "status" : "online",
+      "picture": "path/../",
+      "duration": "30",
+      "questions": {
+        "0":
+        {
+          "id_question" : "0",
+          "position" : "0",
+          "txt" : "Te maquilles tu régulièrement ?",
+          "question_type" : "YesNo",
+          "mandatory" : "true",
+          "answers" : {}
+        },
+        "1":
+        {
+          "id_question" : "1",
+          "position": "1",
+          "txt" : "Comment réveiller des yeux fatigués ?",
+          "question_type" : "unique",
+          "mandatory" : "true",
+          "answers" : {
+            "0":
+            {
+              "id_answer" : "0",
+              "position": "0",
+              "txt" : "La solution make-up"
+            },
+            "1":
+            {
+              "id_answer" : "1",
+              "position": "1",
+              "txt" : "La solution médicale"
+            }
+          }
+        },
+        "2":
+        {
+          "id_question" : "2",
+          "position": "2",
+          "txt" : "Qu'est ce qui est important pour toi ?",
+          "question_type" : "multiple",
+          "mandatory" : "false",
+          "answers" : {
+            "0":
+            {
+              "id_answer" : "0",
+              "position": "0",
+              "txt" : "Le nez"
+            },
+            "1":
+            {
+              "id_answer" : "1",
+              "position": "1",
+              "txt" : "La bouche"
+            },
+            "2":
+            {
+              "id_answer" : "2",
+              "position": "2",
+              "txt" : "Les yeux"
+            },
+            "3":
+            {
+              "id_answer" : "3",
+              "position": "3",
+              "txt" : "Le teint"
+            },
+            "4":
+            {
+              "id_answer" : "4",
+              "position": "4",
+              "txt" : "Les cheveux"
+            }
+          }
+        }
+      },
+      "feedback" : [
+        {
+          "id_user" : "0",
+          "answers" : [{
+            "id_question" : "0",
+            "id_answer" : "1"
+          },
+            {
+              "id_question" : "1",
+              "id_answer" : "1"
+            },
+            {
+              "id_question" : "2",
+              "id_answer" : "1"
+            },
+            {
+              "id_question" : "2",
+              "id_answer" : "3"
+            },
+            {
+              "id_question" : "2",
+              "id_answer" : "5"
+            }
+          ]
+        },
+        {
+          "id_user" : "1",
+          "answers" : [{
+            "id_question" : "0",
+            "id_answer" : "2"
+          },
+            {
+              "id_question" : "1",
+              "id_answer" : "1"
+            },
+            {
+              "id_question" : "2",
+              "id_answer" : "2"
+            },
+            {
+              "id_question" : "2",
+              "id_answer" : "3"
+            },
+            {
+              "id_question" : "2",
+              "id_answer" : "4"
+            }
+          ]
+        }
+      ]
+    },
+    "1":{
+      "id_survey": "1",
+      "title": "Sondage Sport",
+      "description": "sondage sur la pratique du sport en salle",
+      "start_date": "10/12/17",
+      "end_date": "01/01/17",
+      "survey_type": "fun",
+      "theme": "sport",
+      "status" : "offline",
+      "questions": {
+        "0":
+        {
+          "id_question" : "0",
+          "position": "0",
+          "txt" : "Fais tu du sport en salle ?",
+          "question_type" : "YesNo",
+          "mandatory" : "false",
+          "answers" : []
+        },
+        "1":
+        {
+          "id_question" : "1",
+          "position": "1",
+          "txt" : "Te douches tu après le sport ?",
+          "question_type" : "unique",
+          "mandatory" : "true",
+          "answers" : {
+            "0":
+            {
+              "id_answer" : "0",
+              "position": "0",
+              "txt" : "Dans les vestiaires"
+            },
+            "1":
+            {
+              "id_answer" : "1",
+              "position": "1",
+              "txt" : "A là maison"
+            },
+            "2":
+            {
+              "id_answer" : "2",
+              "position": "2",
+              "txt" : "Jamais"
+            }
+          }
+        },
+        "2":
+        {
+          "id_question" : "2",
+          "position": "2",
+          "txt" : "Quel(s) sport(s) pratiques-tu ?",
+          "question_type" : "multiple",
+          "mandatory" : "true",
+          "answers" : {
+            "0":
+            {
+              "id_answer" : "0",
+              "position": "0",
+              "txt" : "Football"
+            },
+            "1":
+            {
+              "id_answer" : "1",
+              "position": "1",
+              "txt" : "Handball"
+            },
+            "2":
+            {
+              "id_answer" : "2",
+              "position": "2",
+              "txt" : "Volleyball"
+            },
+            "3":
+            {
+              "id_answer" : "3",
+              "position": "3",
+              "txt" : "Badminton"
+            },
+            "4":
+            {
+              "id_answer" : "4",
+              "position": "4",
+              "txt" : "Accro Sport"
+            }
+          }
+        }
+      },
+      "feedback" : [
+      ]
+    }
+
+  }
+}

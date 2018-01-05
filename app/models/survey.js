@@ -2,30 +2,31 @@
  * Created by Robin on 19/12/2017.
  */
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'), Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost/survey', function(err) {
-    if (err) { throw err; }
-});
+/**
+ * Schema definition
+ */
 
-// Define survey schema
-var surveySchema = new mongoose.Schema({
+//schema for a survey
+var surveySchema = new Schema({
     title: String,
     description: String,
-    date: Date,
+    start_date: Date,
+    end_date: Date,
     survey_type: String,
     theme: String,
     status: String,
-    questionsArray: [{
-        id_question: Number,
-        txt:  String,
-        question_type: String,
-        mandatory: Boolean,
-        answerArray:[{
-            id_answer: Number,
-            txt: String
-        }]
+    picture: String,
+    duration: String,
+    questions: [{
+        type: Schema.Types.ObjectId,
+        ref: 'question'
     }]
 });
 
-module.exports = mongoose.model('surveys', surveySchema);
+// surveySchema compiled into survey Model
+var survey = mongoose.model('survey', surveySchema);
+
+
+module.exports = survey;
