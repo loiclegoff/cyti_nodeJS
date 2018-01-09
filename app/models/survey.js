@@ -12,18 +12,24 @@ var mongoose = require('mongoose'), Schema = mongoose.Schema;
 var surveySchema = new Schema({
     title: String,
     description: String,
-    start_date: Date,
-    end_date: Date,
+    //start_date: Date,
+    //end_date: Date,
     survey_type: String,
     theme: String,
     status: String,
-    picture: String,
-    duration: String,
-    questions: [{
+    //picture: String,
+    duration: String},
+    /*questions: [{
         type: Schema.Types.ObjectId,
         ref: 'question'
-    }]
-});
+    }] */
+    { versionKey: false
+    });
+
+/**
+ * toJSON implementation
+ */
+
 
 // surveySchema compiled into survey Model
 var survey = mongoose.model('survey', surveySchema);

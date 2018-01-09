@@ -11,8 +11,6 @@
       "survey_type" : "fun",
       "theme" : "beauty",
       "status" : "online",
-      "picture": "path/../",
-      "duration": "30",
       "questions": {
         "0":
         {

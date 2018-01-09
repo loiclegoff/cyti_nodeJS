@@ -13,11 +13,11 @@ var mongoose = require('mongoose'), Schema = mongoose.Schema;
     position: Number,
     txt:String,
     type: String,
-    mandatory: Boolean,
+    mandatory: Boolean/*
     answers:[{
         type: Schema.Types.ObjectId,
         ref: 'answer'
-    }]
+    }]*/
 });
 
 // questionSchema compiled into question Model

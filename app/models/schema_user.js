@@ -12,13 +12,9 @@ var mongoose = require('mongoose'), Schema = mongoose.Schema;
 
 //schema pour un utilisateur
 var userSchema = new Schema({
-    id_user: Schema.Types.ObjectId,
     username: String,
     owner: Boolean,
-    surveys: [{
-        type: Schema.Types.ObjectId,
-        ref: 'survey'
-    }]
+    surveys: [Schema.Types.ObjectId]
 });
 
 module.exports = mongoose.model('user', userSchema);
