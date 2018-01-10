@@ -19,10 +19,6 @@ var surveySchema = new Schema({
     status: String,
     //picture: String,
     duration: String},
-    /*questions: [{
-        type: Schema.Types.ObjectId,
-        ref: 'question'
-    }] */
     { versionKey: false
     });
 
