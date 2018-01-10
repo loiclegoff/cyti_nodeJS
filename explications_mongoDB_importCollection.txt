@@ -1,4 +1,4 @@
-Infos pour MongoDB:
+﻿Infos pour MongoDB:
 
 //télécharger le fichier .msi sur le site MongoDB
 
@@ -19,3 +19,4 @@ $ mongoimport --db db_test --collection sondages --drop --file
 
 
 
+Projet5ETIinfo

@@ -1,0 +1,22 @@
+{
+  "answers":[
+    {
+      "id_question":"5a4e6c0614f28220cc9c11c3",
+      "id_survey":"5a4e6c1c27650b127ca08735",
+      "position": 0,
+      "txt": "reponse 0"
+    },
+    {
+      "id_question":"5a4e6c0614f28220cc9c11c3",
+      "id_survey":"5a4e6c1c27650b127ca08735",
+      "position": 1,
+      "txt": "reponse 1"
+    },
+    {
+      "id_question":"5a4e6c4ca82b761c60d9246d",
+      "id_survey":"5a4e6c1c27650b127ca08735",
+      "position": 2,
+      "txt": "reponse 2"
+    }
+  ]
+}
