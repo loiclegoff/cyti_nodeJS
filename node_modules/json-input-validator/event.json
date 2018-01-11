@@ -1,0 +1,6 @@
+{
+	"email_address": "test@example.com",
+	"password": "qwerty",
+	"password2": "qwerty",
+	"home_page_url": "http://www.example.com/about"
+}

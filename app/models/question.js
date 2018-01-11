@@ -11,14 +11,11 @@ var mongoose = require('mongoose'), Schema = mongoose.Schema;
     var questionSchema = new Schema({
     id_survey: Schema.Types.ObjectId,
     position: Number,
-    txt:String,
+    txt: String,
     type: String,
-    mandatory: Boolean/*
-    answers:[{
-        type: Schema.Types.ObjectId,
-        ref: 'answer'
-    }]*/
-});
+    mandatory: Boolean},
+    { versionKey: false
+    });
 
 // questionSchema compiled into question Model
 var question = mongoose.model('question', questionSchema);
