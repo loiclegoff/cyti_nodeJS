@@ -15,7 +15,9 @@ var answerSchema = new Schema({
     id_survey: Schema.Types.ObjectId,
     position: Number,
     txt: String
-});
+    },
+    { versionKey: false
+    });
 
 // answerSchema compiled into answer Model
 var answer = mongoose.model('answer', answerSchema);
