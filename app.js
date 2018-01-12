@@ -22,6 +22,9 @@ app.use('/app', app_mobile);
 var server = http.createServer(app);
 server.listen(CONFIG.port,  function(){
     console.log(`Listening at port ${CONFIG.port}`);
+
+
+    
 });
 
 
