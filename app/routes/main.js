@@ -5,11 +5,6 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var database = require('../../config/database');
-var survey_model = require('../../app/models/survey');
-var question_model = require('../../app/models/question');
-var answer_model = require('../../app/models/answer');
 var survey_controller = require('../controller/surveyController');
 var question_answer_controller = require('../controller/question_answerController');
 
@@ -35,5 +30,7 @@ router.post('/', survey_controller.new_survey);
 router.post('/add_question',question_answer_controller.add_question_with_answers);
 
 router.post('/change_status', survey_controller.change_status_survey);
+
+
 
 module.exports = router;

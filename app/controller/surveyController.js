@@ -60,7 +60,7 @@ exports.new_survey = function(req, res) {
  * @param req
  * @param res
  */
-exports.change_status_survey = function(req, res){
+exports.change_status_survey = function(req, res, next){
     var db = mongoose.connection;
     mongoose.connect(database.url);
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -71,16 +71,17 @@ exports.change_status_survey = function(req, res){
             if (err) {
                 // Note that this error doesn't mean nothing was found,
                 // it means the database had an error while searching, hence the 500 status
-                res.status(500).send(err);
+                return next(err);
+                //res.status(500).send(err);
             } else {
                 if(survey.status === "offline") survey.status = "online";
                 else survey.status = "offline";
                 survey.save( function(err, survey){
                     if (err) {
-                        res.status(500).send(err)
+                        return next(err);
                     }
                     //A modifier !
-                    res.status(200).send(survey);
+                    res.end(JSON.stringify(survey));
                     mongoose.connection.close();
             });
             }
@@ -92,7 +93,7 @@ exports.change_status_survey = function(req, res){
     });
 };
 
-exports.list_surveys_online = function(req, res){
+exports.list_surveys_online = function(req, res, next){
     var db = mongoose.connection;
     mongoose.connect(database.url);
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -103,11 +104,11 @@ exports.list_surveys_online = function(req, res){
             if (err) {
                 // Note that this error doesn't mean nothing was found,
                 // it means the database had an error while searching, hence the 500 status
-                res.status(500).send(err);
-            } else {
-                res.status(200).send(survey);
-                mongoose.connection.close();
+                return next(err);
             }
+                mongoose.connection.close();
+                res.end(JSON.stringify(survey));
+
         });
     });
     // When the connection is disconnected

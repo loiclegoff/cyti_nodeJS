@@ -9,11 +9,13 @@ var mongoose = require('mongoose'), Schema = mongoose.Schema;
 
 // schema of a question; includes answer model
     var questionSchema = new Schema({
-    id_survey: Schema.Types.ObjectId,
-    position: Number,
-    txt: String,
-    type: String,
-    mandatory: Boolean},
+        id_survey: Schema.Types.ObjectId,
+        position: Number,
+        txt: String,
+        type: String,
+        mandatory: Boolean,
+        answers: [{type: Schema.Types.ObjectId, ref: 'answer'}]
+    },
     { versionKey: false
     });
 
