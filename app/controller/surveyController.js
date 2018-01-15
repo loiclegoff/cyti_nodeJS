@@ -25,7 +25,8 @@ exports.new_survey = function(req, res, next) {
     db.on('open', function () {
         console.log("we're connected!");
         console.log("******\n");
-        console.log(req.body);
+        console.log("req " + req+ "\n");
+        console.log("req.body " + req.body + "\n");
         var survey = {
             _id: req.body.id_survey,
             title: sanitize(req.body.title),
@@ -52,7 +53,8 @@ exports.new_survey = function(req, res, next) {
     });
 };
 
-/** FRONT
+/** Front side
+ *
  * Update status survey in DB
  *
  * @param req
@@ -93,7 +95,9 @@ exports.change_status_survey = function(req, res, next){
     });
 };
 
-/** APPLI
+/** Application side
+ *
+ * List all surveys which are online
  *
  * @param req
  * @param res
@@ -120,6 +124,18 @@ exports.list_surveys_online = function(req, res, next){
     // When the connection is disconnected
     db.on('disconnected', function () {
         console.log('Mongoose default connection disconnected');
+    });
+};
+
+exports.delete_survey = function(req, res, next){
+    var db = mongoose.connection;
+    mongoose.connect(database.url);
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.on('open', function () {
+        console.log("we're connected!");
+        console.log("******\n");
+
+
     });
 };
 
