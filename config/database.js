@@ -3,6 +3,6 @@
  */
 
 module.exports = {
-    //url : 'mongodb://192.168.1.101/test'
     url : 'mongodb://localhost/test'
+    //url : 'mongodb://195.154.107.158/'
 };

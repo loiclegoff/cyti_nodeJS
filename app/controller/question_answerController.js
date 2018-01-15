@@ -11,8 +11,9 @@ var answer_model = require('../models/answer');
 var sanitize = require('mongo-sanitize');
 
 
-/** send the list of questions of the current survey
- *
+/** APPLI
+ * send the list of questions of the current survey
+ * Working
  * @param req
  * @param res
  */
@@ -40,7 +41,11 @@ exports.list_questions_with_answers = function(req, res, next) {
     });
 
 };
-
+/** FRONT
+ *
+ * @param req
+ * @param res
+ */
 exports.add_question_with_answers = function(req, res){
     var db = mongoose.connection;
     mongoose.connect(database.url);
@@ -98,7 +103,11 @@ exports.add_question_with_answers = function(req, res){
 };
 
 
-
+/** FRONT
+ *
+ * @param req
+ * @param res
+ */
 exports.update_question_with_answers = function(req, res){
     var db = mongoose.connection;
 
