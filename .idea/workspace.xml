@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c41f33fa-bfde-4afe-907d-607ef0492447" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/question_answerController.js" afterPath="$PROJECT_DIR$/app/controller/question_answerController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes/app_mobile.js" afterPath="$PROJECT_DIR$/app/routes/app_mobile.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app_mobile.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app_mobile.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/routes/app_mobile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="22" column="48" lean-forward="false" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="48" />
+            <state relative-caret-position="292">
+              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
               </folding>
@@ -120,7 +119,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -208,11 +207,11 @@
         <option value="$PROJECT_DIR$/question_post.json" />
         <option value="$PROJECT_DIR$/app/routes/main.js" />
         <option value="$PROJECT_DIR$/app/models/survey.js" />
-        <option value="$PROJECT_DIR$/app/routes/app_mobile.js" />
         <option value="$PROJECT_DIR$/config/database.js" />
         <option value="$PROJECT_DIR$/app/controller/surveyController.js" />
         <option value="$PROJECT_DIR$/app/controller/question_answerController.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/app/routes/app_mobile.js" />
       </list>
     </option>
   </component>
@@ -866,12 +865,12 @@
       <workItem from="1513346676671" duration="3497000" />
       <workItem from="1513672671551" duration="16031000" />
       <workItem from="1513774026190" duration="149934000" />
-      <workItem from="1515958049930" duration="14616000" />
+      <workItem from="1515958049930" duration="15009000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184078000" />
+    <option name="totallyTimeSpent" value="184471000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1199,16 +1198,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/app_mobile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="22" column="48" lean-forward="false" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/question.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
@@ -1292,6 +1281,16 @@
         <state relative-caret-position="0">
           <caret line="0" column="9" lean-forward="true" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes/app_mobile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -20,5 +20,5 @@ router.get('/', survey_controller.list_surveys_online);
 
 // define the /:id_survey page of app/ route
 router.get('/:id_survey', question_controller.list_questions_with_answers);
-router.post('/test/', survey_controller.list_all);
+
 module.exports = router;
