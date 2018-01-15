@@ -15,6 +15,24 @@ router.use(bodyParser.urlencoded({
 
 router.use(bodyParser.json());
 
+// ## CORS middleware
+//
+// see: http://stackoverflow.com/questions/7067966/how-to-allow-cors-in-express-nodejs
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' === req.method) {
+        res.send(200);
+    }
+    else {
+        next();
+    }
+};
+router.use(allowCrossDomain);
+
 // define the home page of app/ route
 router.get('/', survey_controller.list_surveys_online);
 
