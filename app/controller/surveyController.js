@@ -25,6 +25,7 @@ exports.new_survey = function(req, res, next) {
     db.on('open', function () {
         console.log("we're connected!");
         console.log("******\n");
+        console.log(req.body);
         var survey = {
             _id: req.body.id_survey,
             title: sanitize(req.body.title),
@@ -32,8 +33,7 @@ exports.new_survey = function(req, res, next) {
             survey_type: sanitize(req.body.survey_type),
             theme: sanitize(req.body.theme),
             status: "offline",
-            duration: "",
-            questions: [req.body.questions]
+            duration: ""
         };
         new survey_model(survey).save(function (err) {
             if (err) {
