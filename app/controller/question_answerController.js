@@ -35,8 +35,6 @@ exports.list_questions_with_answers = function(req, res, next) {
     });
     // When the connection is disconnected
     db.on('disconnected', function () {
-
-
         console.log('Mongoose default connection disconnected');
     });
 
