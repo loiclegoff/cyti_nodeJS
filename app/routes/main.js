@@ -41,14 +41,21 @@ router.use(function timeLog(req, res, next) {
     next();
 });
 
-// define the home page route
+// Add a new survey
 router.post('/', survey_controller.new_survey);
 
-// define the add_question route
-router.post('/add_question',question_answer_controller.add_question_with_answers);
+//List all surveys with questions and answers for a specific user
+router.get('/', survey_controller.list_all);
 
-router.post('/change_status', survey_controller.change_status_survey);
+// Add a new question with its respective answers
+router.post('/survey/add_question',question_answer_controller.add_question_with_answers);
 
+//Update the status of a targeted survey
+router.post('/survey/change_status', survey_controller.change_status_survey);
 
+//Delete a targeted survey
+router.delete('/survey/delete', survey_controller.delete_survey);
+
+router.delete('/survey/delete_question', question_answer_controller.delete_question);
 
 module.exports = router;

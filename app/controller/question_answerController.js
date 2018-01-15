@@ -4,6 +4,7 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 var database = require('../../config/database');
+var survey_model = require('../models/survey');
 var question_model = require('../models/question');
 var answer_model = require('../models/answer');
 
@@ -27,8 +28,7 @@ exports.list_questions_with_answers = function(req, res, next) {
         var id_survey = sanitize(req.params.id_survey);
         question_model.find({"id_survey": id_survey}).populate({path:"answers",
             model:"answer"}).exec(function (err, questions) {
-            if (err) return next(err);//res.status(500).send(err);
-            //res.json(questions);
+            if (err) return next(err);
             res.end(JSON.stringify(questions));
             mongoose.connection.close();
         });
@@ -39,12 +39,13 @@ exports.list_questions_with_answers = function(req, res, next) {
     });
 
 };
-/** FRONT
+/** Front Side
  *
+ * Add a new question with its respective answers
  * @param req
  * @param res
  */
-exports.add_question_with_answers = function(req, res){
+exports.add_question_with_answers = function(req, res, next ){
     var db = mongoose.connection;
     mongoose.connect(database.url);
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -83,15 +84,26 @@ exports.add_question_with_answers = function(req, res){
             mandatory: req.body.mandatory,
             answers: ids_array
         };
-        console.log(question);
         var answers = create_answers(answers_array);
-        console.log(answers);
-        new question_model(question).save(function (err) {
+        new question_model(question).save(function (err, question) {
             if (err) {
                 throw err;
             }
-            mongoose.connection.close();
-
+            survey_model.findByIdAndUpdate(req.body.id_survey, {
+                $push: { questions: question._id }}, {upsert:true}, function (err) {
+                if (err) return next(err);
+                else {
+                    survey_model.find({}).populate({
+                        path: "questions", model: "question", populate: {
+                            path: 'answers',
+                            model: 'answer'
+                        }
+                    }).exec(function (err, surveys) {
+                        res.end(JSON.stringify(surveys));
+                        mongoose.connection.close();
+                    });
+                }
+            });
         });
     });
     // When the connection is disconnected
@@ -117,6 +129,48 @@ exports.update_question_with_answers = function(req, res){
         var id_question = req.body.id_question;
     });
 
+    // When the connection is disconnected
+    db.on('disconnected', function () {
+        console.log('Mongoose default connection disconnected');
+    });
+};
+
+/**Front side
+ *
+ * Delete a specified question from a survey
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.delete_question = function (req, res, next){
+    var db = mongoose.connection;
+    mongoose.connect(database.url);
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.on('open', function () {
+        console.log("we're connected!");
+        console.log("******\n");
+        survey_model.findByIdAndUpdate(req.body.id_survey, {
+            $pull: { questions: req.body.id_question }}, {upsert:true}, function (err) {
+            if (err) return next(err);
+            console.log("deleted");
+        });
+        question_model.findByIdAndRemove(req.body.id_question,function(err) {
+            if (err) {
+                return next(err);
+            } else {
+                survey_model.find({}).populate({
+                    path: "questions", model: "question", populate: {
+                        path: 'answers',
+                        model: 'answer'
+                    }
+                }).exec(function (err, surveys) {
+                    res.end(JSON.stringify(surveys));
+                    mongoose.connection.close();
+                });
+            }
+        });
+
+    });
     // When the connection is disconnected
     db.on('disconnected', function () {
         console.log('Mongoose default connection disconnected');

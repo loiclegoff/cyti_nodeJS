@@ -1,21 +1,21 @@
 {
   "id_user": "5a549119accf993ed7222823",
-  "id_survey": "5a566ae22f9aa031bcc7b2cc",
-  "id_question": "5a566ae22f9aa031bcc7b208",
+  "id_survey": "5a5cf86224bb1d04cc441637",
+  "id_question": "5a566ae22f9a9031b797b208",
   "question_position": 0,
-  "question_txt" : "Qu'est ce qui est important pour toi chez un homme ? ",
+  "question_txt" : "Qu'est ce que tu préfères travailler à la salle ? ",
   "question_type" : "multiple",
   "mandatory" : false,
   "answers" : [
     {
-      "id_answer": "5a566ae22f9aa031b007b2cc",
+      "id_answer": "5a566ae79a3aa0337007b2cc",
       "answer_position": 0,
-      "answer_txt" : "Les pieds"
+      "answer_txt" : "Les ischios"
     },
     {
-      "id_answer": "5a566ae22f9va031b007b2cc",
+      "id_answer": "5a5623622f9ba031b007b2cc",
       "answer_position": 1,
-      "answer_txt" : "Les yeux"
+      "answer_txt" : "Les quadris"
     }
   ]
 }

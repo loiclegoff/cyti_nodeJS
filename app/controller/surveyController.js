@@ -5,12 +5,30 @@
 var mongoose = require('mongoose');
 var database = require('../../config/database');
 var survey_model = require('../models/survey');
-var question_model = require('../models/question');
-var answer_model = require('../models/answer');
 
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
 
+
+exports.list_all = function(req, res){
+    var db = mongoose.connection;
+    mongoose.connect(database.url);
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.on('open', function () {
+        console.log("we're connected!");
+        console.log("******\n");
+        survey_model.find({}).populate({path: "questions", model: "question", populate: { path: 'answers',
+            model: 'answer'}}).exec(function (err, surveys) {
+            res.end(JSON.stringify(surveys));
+            mongoose.connection.close();
+        });
+    // When the connection is disconnected
+    db.on('disconnected', function () {
+        console.log('Mongoose default connection disconnected');
+    });
+});
+
+};
 
 /** FRONT
  * Create a new survey in survey collection
@@ -25,8 +43,6 @@ exports.new_survey = function(req, res, next) {
     db.on('open', function () {
         console.log("we're connected!");
         console.log("******\n");
-        console.log("req " + req+ "\n");
-        console.log("req.body " + req.body + "\n");
         var survey = {
             _id: req.body.id_survey,
             title: sanitize(req.body.title),
@@ -127,6 +143,13 @@ exports.list_surveys_online = function(req, res, next){
     });
 };
 
+/** Front side
+ *
+ * Delete a specified survey from its ID in BD
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.delete_survey = function(req, res, next){
     var db = mongoose.connection;
     mongoose.connect(database.url);
@@ -134,8 +157,25 @@ exports.delete_survey = function(req, res, next){
     db.on('open', function () {
         console.log("we're connected!");
         console.log("******\n");
-
-
+        survey_model.findByIdAndRemove(req.body.id_survey,function(err) {
+            if (err) {
+                return next(err);
+            } else {
+                survey_model.find({}).populate({
+                    path: "questions", model: "question", populate: {
+                        path: 'answers',
+                        model: 'answer'
+                    }
+                }).exec(function (err, surveys) {
+                    res.end(JSON.stringify(surveys));
+                    mongoose.connection.close();
+                });
+            }
+        });
+    });
+    // When the connection is disconnected
+    db.on('disconnected', function () {
+        console.log('Mongoose default connection disconnected');
     });
 };
 
