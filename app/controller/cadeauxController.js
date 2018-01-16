@@ -24,10 +24,10 @@ exports.new_cadeau = function(req, res) {
         console.log("we're connected!");
         console.log("******\n");
         var cadeaux = {
-            title: sanitize("titleTEST1"),
-            description: sanitize("descriptionTEST1descriptionTEST1descriptionTEST1descriptionTEST1"),
-            cadeaux_type: sanitize("2"),
-            points: sanitize("134"),
+            title: sanitize("Cadeaux numero 1"),
+            description: sanitize("Petit cadeau tres sympa pas cher"),
+            cadeaux_type: sanitize("1"),
+            points: sanitize("45"),
             url: sanitize("https://shoutem.github.io/img/ui-toolkit/examples/image-7.png")        };
         new cadeaux_model(cadeaux).save(function (err, cadeaux) {
             if (err) {
@@ -62,7 +62,7 @@ exports.list_cadeaux_online = function(req, res, next){
     db.on('open', function () {
         console.log("we're connected!");
         console.log("******\n");
-        cadeaux_model.find({points: { $lte : req.query.points }},function (err, cadeaux) {
+        cadeaux_model.find(function (err, cadeaux) {
             if (err) {
                 // Note that this error doesn't mean nothing was found,
                 // it means the database had an error while searching, hence the 500 status
