@@ -25,7 +25,7 @@ exports.list_questions_with_answers = function(req, res, next) {
     db.on('open', function () {
         console.log("we're connected!");
         console.log("******\n");
-        var id_survey = sanitize(req.params.id_survey);
+        var id_survey = req.params.id_survey;
         question_model.find({"id_survey": id_survey}).populate({path:"answers",
             model:"answer"}).exec(function (err, questions) {
             if (err) return next(err);

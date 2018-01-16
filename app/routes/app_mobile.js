@@ -7,6 +7,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var question_controller = require('../controller/question_answerController');
 var survey_controller = require('../controller/surveyController');
+var answer_user_controller = require('../controller/answers_userController');
 
 //Body parser
 router.use(bodyParser.urlencoded({
@@ -38,5 +39,7 @@ router.get('/', survey_controller.list_surveys_online);
 
 // define the /:id_survey page of app/ route
 router.get('/:id_survey', question_controller.list_questions_with_answers);
+
+router.post('/:id_survey/new_answer', answer_user_controller.new_answer_user);
 
 module.exports = router;

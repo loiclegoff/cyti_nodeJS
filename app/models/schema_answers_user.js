@@ -8,13 +8,15 @@ var mongoose = require('mongoose'), Schema = mongoose.Schema;
  * Schema definition
  */
 
-//schema pour les reponses donnees par l'utilisateur
+//schema for users answers
 var answers_userSchema = new Schema({
-    id_user: Schema.Types.ObjectId,
-    id_questions: Schema.Types.ObjectId,
-    id_answer: Schema.Types.ObjectId
-
-});
+    id_user: String,
+    id_survey: String,
+    id_question: String,
+    id_answer: [String]
+    },{
+    versionKey: false
+    });
 
 
 
