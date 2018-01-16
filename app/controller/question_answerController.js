@@ -127,9 +127,11 @@ exports.update_question_with_answers = function(req, res){
  */
 exports.delete_question = function (req, res){
 
+    console.log("req.body "+ req.body);
         survey_model.findByIdAndUpdate(req.body.id_survey, {
-            $pull: { questions: req.body.id_question }}, {upsert:true}, function (err) {
+            $pull: { questions: req.body.id_question }}, {upsert:true}, function (err, survey) {
             if (err) res.status(500).send(err);
+            console.log("survey :" + survey + "\n");
             console.log("id question : "+ req.body.id_question + " deleted\n");
             question_model.findByIdAndRemove(req.body.id_question,function(err) {
                 if (err) {
