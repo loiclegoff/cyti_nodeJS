@@ -134,28 +134,6 @@ exports.add_question_with_answers = function(req, res ){
 };
 
 
-/** FRONT
- *
- * @param req
- * @param res
- */
-exports.update_question_with_answers = function(req, res){
-    var db = mongoose.connection;
-
-        mongoose.connect(database.url);
-        db.on('error', console.error.bind(console, 'connection error:'));
-        db.on('open', function () {
-            console.log("we're connected! update_question_with_answers");
-            console.log("******\n");
-        var id_question = req.body.id_question;
-    });
-
-    // When the connection is disconnected
-    db.on('disconnected', function () {
-        console.log('Mongoose default connection disconnected');
-    });
-};
-
 /**Front side
  *
  * Delete a specified question from a survey

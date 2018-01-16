@@ -158,3 +158,41 @@ exports.delete_survey = function(req, res){
         });
 };
 
+
+exports.update_survey = function(req, res){
+
+    var modifications = {};
+
+    // Check which parameters are set and add to object.
+    // Indexes set to 'undefined' won't be included.
+    modifications.title = req.body.title ?
+        req.body.title: "undefined";
+
+    modifications.description = req.body.description ?
+        req.body.description: "undefined";
+
+    modifications.survey_type = req.body.survey_type ?
+        req.body.survey_type: "undefined";
+
+    modifications.theme = req.body.theme ?
+        req.body.theme: "undefined";
+
+    survey_model.findByIdAndUpdate(req.body.id_survey, {
+        $set: modifications}, {new: true}, function (err, survey) {
+        if (err) res.send(err);
+        else{
+            console.log("new update : " + survey);
+            survey_model.find({}).populate({
+                path: "questions", model: "question", populate: {
+                    path: 'answers',
+                    model: 'answer'
+                }
+            }).exec(function (err, surveys) {
+                if (err) res.send(err);
+                else {
+                    res.json(surveys);
+                }
+            });
+        }
+    });
+};
