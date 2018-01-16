@@ -1,5 +1,5 @@
 /**
- * Created by Robin on 10/01/2018.
+ * Created by Antoine on 15/01/2018.
  */
 
 var mongoose = require('mongoose');

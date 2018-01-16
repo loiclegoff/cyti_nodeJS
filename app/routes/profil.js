@@ -1,11 +1,11 @@
 /**
- * Created by Antoine on 15/01/2018.
+ * Created by Antoine on 16/01/2018.
  */
 
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var cadeaux_controller = require('../controller/cadeauxController');
+var user_controller = require('../controller/userController');
 
 //Body parser
 router.use(bodyParser.urlencoded({
@@ -15,7 +15,7 @@ router.use(bodyParser.urlencoded({
 router.use(bodyParser.json());
 
 // define the home page of app/ route
-router.get('/', cadeaux_controller.list_cadeaux_online);
+router.get('/', user_controller.new_user);
 //router.get('/', cadeaux_controller.new_cadeau);
 
 module.exports = router;
