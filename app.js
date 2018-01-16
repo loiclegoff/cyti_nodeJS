@@ -9,6 +9,8 @@ const UserModel = require('./app/models/schema_user');
 var main = require('./app/routes/main');
 var app_mobile= require ('./app/routes/app_mobile');
 var cadeaux= require ('./app/routes/cadeaux');
+var profil= require ('./app/routes/profil');
+
 var app = express();
 
 /*app.get('/', function(req, res){
@@ -18,6 +20,7 @@ var app = express();
 app.use('/', main);
 app.use('/app', app_mobile);
 app.use('/cadeaux', cadeaux);
+app.use('/profil', profil);
 
 // init server
 var server = http.createServer(app);

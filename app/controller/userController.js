@@ -1,10 +1,10 @@
-/**
- * Created by Antoine on 15/01/2018.
+ /**
+ * Created by Antoine on 16/01/2018.
  */
 
 var mongoose = require('mongoose');
 var database = require('../../config/database');
-var cadeaux_model = require('../models/cadeaux');
+var user_model = require('../models/schema_user');
 
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
@@ -15,7 +15,7 @@ var sanitize = require('mongo-sanitize');
  * @param req
  * @param res
  */
-exports.new_cadeau = function(req, res) {
+exports.new_user = function(req, res) {
 
     var db = mongoose.connection;
     mongoose.connect(database.url);
@@ -23,25 +23,27 @@ exports.new_cadeau = function(req, res) {
     db.on('open', function () {
         console.log("we're connected!");
         console.log("******\n");
-        var cadeaux = {
-            title: sanitize("Cadeaux numero 1"),
-            description: sanitize("Petit cadeau tres sympa pas cher"),
-            cadeaux_type: sanitize("1"),
-            points: sanitize("45"),
-            url: sanitize("https://shoutem.github.io/img/ui-toolkit/examples/image-7.png")        };
-        new cadeaux_model(cadeaux).save(function (err, cadeaux) {
+        var user = {
+        	id_facebook: "idfacebook",
+    		username: "username",
+    		login: "login",
+    		mdp: "mdp",
+    		owner: 0,
+    		points : "1050"
+    	};
+        new user_model(user).save(function (err, user) {
             if (err) {
                 throw err;
             }
-            var id_survey = cadeaux._id;
+            var id_user = user._id;
             //we get the Object_ID of the current survey
-            cadeaux_model.findById(id_survey,function(err, cadeaux){
+            user_model.findById(id_user,function(err, user){
                 if (err) {
                     // Note that this error doesn't mean nothing was found,
                     // it means the database had an error while searching, hence the 500 status
                     res.status(500).send(err);
                 } else {
-                    res.status(200).send(cadeaux[0]);
+                    res.status(200).send(user[0]);
                     mongoose.connection.close();
                 }
             });
@@ -62,7 +64,7 @@ exports.list_cadeaux_online = function(req, res, next){
     db.on('open', function () {
         console.log("we're connected!");
         console.log("******\n");
-        cadeaux_model.find(function (err, cadeaux) {
+        user_model.find(function (err, cadeaux) {
             if (err) {
                 // Note that this error doesn't mean nothing was found,
                 // it means the database had an error while searching, hence the 500 status
@@ -78,6 +80,5 @@ exports.list_cadeaux_online = function(req, res, next){
         console.log('Mongoose default connection disconnected');
     });
 };
-
 
 
