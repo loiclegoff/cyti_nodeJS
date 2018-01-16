@@ -29,7 +29,9 @@ exports.list_questions_with_answers = function(req, res, next) {
         question_model.find({"id_survey": id_survey}).populate({path:"answers",
             model:"answer"}).exec(function (err, questions) {
             if (err) return next(err);
-            res.end(JSON.stringify(questions));
+            console.log(questions);
+            res.json(questions);
+            //res.end(JSON.stringify(questions));
             mongoose.connection.close();
         });
     });

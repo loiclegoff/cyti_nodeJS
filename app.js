@@ -11,9 +11,9 @@ var app_mobile= require ('./app/routes/app_mobile');
 var cadeaux= require ('./app/routes/cadeaux');
 var app = express();
 
-app.get('/', function(req, res){
+/*app.get('/', function(req, res){
     res.send("Hello cyti !!");
-});
+});*/
 
 app.use('/', main);
 app.use('/app', app_mobile);
