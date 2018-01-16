@@ -130,24 +130,25 @@ exports.delete_question = function (req, res){
         survey_model.findByIdAndUpdate(req.body.id_survey, {
             $pull: { questions: req.body.id_question }}, {upsert:true}, function (err) {
             if (err) res.status(500).send(err);
-            console.log("question deleted");
+            console.log("id question : "+ req.body.id_question + " deleted\n");
+            question_model.findByIdAndRemove(req.body.id_question,function(err) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    survey_model.find({}).populate({
+                        path: "questions", model: "question", populate: {
+                            path: 'answers',
+                            model: 'answer'
+                        }
+                    }).exec(function (err, surveys) {
+                        if (err) {
+                            res.send(err);
+                        } else {
+                            res.json(surveys);
+                        }
+                    });
+                }
+            });
         });
-        question_model.findByIdAndRemove(req.body.id_question,function(err) {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                survey_model.find({}).populate({
-                    path: "questions", model: "question", populate: {
-                        path: 'answers',
-                        model: 'answer'
-                    }
-                }).exec(function (err, surveys) {
-                    if (err) {
-                        res.send(err);
-                    } else {
-                        res.json(surveys);
-                    }
-                });
-            }
-        });
+
 };

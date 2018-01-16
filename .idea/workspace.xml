@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c41f33fa-bfde-4afe-907d-607ef0492447" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/question_answerController.js" afterPath="$PROJECT_DIR$/app/controller/question_answerController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/surveyController.js" afterPath="$PROJECT_DIR$/app/controller/surveyController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/database.js" afterPath="$PROJECT_DIR$/config/database.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -99,8 +96,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+            <state relative-caret-position="497">
+              <caret line="58" column="73" lean-forward="true" selection-start-line="58" selection-start-column="73" selection-end-line="58" selection-end-column="73" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
               </folding>
@@ -123,8 +120,8 @@
       <file leaf-file-name="question_answerController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controller/question_answerController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="126" column="3" lean-forward="true" selection-start-line="126" selection-start-column="3" selection-end-line="126" selection-end-column="3" />
+            <state relative-caret-position="276">
+              <caret line="135" column="46" lean-forward="true" selection-start-line="135" selection-start-column="46" selection-end-line="135" selection-end-column="46" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
               </folding>
@@ -135,7 +132,7 @@
       <file leaf-file-name="answers_userController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controller/answers_userController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
+            <state relative-caret-position="446">
               <caret line="29" column="11" lean-forward="true" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
@@ -874,12 +871,12 @@
       <workItem from="1513346676671" duration="3497000" />
       <workItem from="1513672671551" duration="16031000" />
       <workItem from="1513774026190" duration="149934000" />
-      <workItem from="1515958049930" duration="53943000" />
+      <workItem from="1515958049930" duration="55957000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="223405000" />
+    <option name="totallyTimeSpent" value="225419000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1241,16 +1238,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controller/answers_userController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="29" column="11" lean-forward="true" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/app_mobile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -1279,16 +1266,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controller/surveyController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1564">
@@ -1299,10 +1276,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/controller/answers_userController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="29" column="11" lean-forward="true" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="58" column="73" lean-forward="true" selection-start-line="58" selection-start-column="73" selection-end-line="58" selection-end-column="73" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/controller/question_answerController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="126" column="3" lean-forward="true" selection-start-line="126" selection-start-column="3" selection-end-line="126" selection-end-column="3" />
+        <state relative-caret-position="276">
+          <caret line="135" column="46" lean-forward="true" selection-start-line="135" selection-start-column="46" selection-end-line="135" selection-end-column="46" />
           <folding>
             <element signature="e#0#42#0" expanded="false" />
           </folding>
