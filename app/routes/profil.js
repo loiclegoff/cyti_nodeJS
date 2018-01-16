@@ -15,7 +15,7 @@ router.use(bodyParser.urlencoded({
 router.use(bodyParser.json());
 
 // define the home page of app/ route
-router.get('/', user_controller.new_user);
-//router.get('/', cadeaux_controller.new_cadeau);
+//router.get('/', user_controller.new_user);
+router.get('/', user_controller.list_cadeaux_online);
 
 module.exports = router;
