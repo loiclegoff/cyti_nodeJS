@@ -137,20 +137,27 @@ exports.delete_question = function (req, res){
                 if (err) {
                     res.status(500).send(err);
                 } else {
-                    survey_model.find({}).populate({
-                        path: "questions", model: "question", populate: {
-                            path: 'answers',
-                            model: 'answer'
-                        }
-                    }).exec(function (err, surveys) {
+                    answer_model.remove({ id_question: req.body.id_question, id_survey: req.body.id_survey }, function(err) {
                         if (err) {
                             res.send(err);
-                        } else {
-                            res.json(surveys);
+                        }
+                        else {
+                            survey_model.find({}).populate({
+                                path: "questions", model: "question", populate: {
+                                    path: 'answers',
+                                    model: 'answer'
+                                }
+                            }).exec(function (err, surveys) {
+                                if (err) {
+                                    res.send(err);
+                                } else {
+                                    res.json(surveys);
+                                    console.log(surveys);
+                                }
+                            });
                         }
                     });
                 }
             });
         });
-
 };
