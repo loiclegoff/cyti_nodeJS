@@ -12,7 +12,10 @@ var mongoose = require('mongoose'), Schema = mongoose.Schema;
 
 //schema pour un utilisateur
 var userSchema = new Schema({
+    id_facebook: String,
     username: String,
+    login: String,
+    mdp: String,
     owner: Boolean,
     surveys: [Schema.Types.ObjectId]
 });
