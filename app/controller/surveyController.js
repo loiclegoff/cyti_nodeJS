@@ -135,6 +135,7 @@ exports.list_surveys_online = function(req, res, next){
             }
                 mongoose.connection.close();
                 res.end(JSON.stringify(survey));
+                next();
 
         });
     });

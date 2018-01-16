@@ -33,6 +33,7 @@ exports.list_questions_with_answers = function(req, res, next) {
             //res.json(questions);
             res.end(JSON.stringify(questions));
             mongoose.connection.close();
+            next();
         });
     });
     // When the connection is disconnected
