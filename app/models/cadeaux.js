@@ -1,5 +1,5 @@
 /**
- * Created by Robin on 19/12/2017.
+ * Created by Antoine on 15/01/2017.
  */
 
 var mongoose = require('mongoose'), Schema = mongoose.Schema;
