@@ -4,6 +4,8 @@
 var mongoose = require('mongoose');
 var database = require('../../config/database');
 var survey_model = require('../models/survey');
+var question_model = require('../models/question');
+var answer_model = require('../models/answer');
 
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
@@ -127,15 +129,29 @@ exports.delete_survey = function(req, res){
             if (err) {
                 res.status(500).send(err);
             } else {
-                survey_model.find({}).populate({
-                    path: "questions", model: "question", populate: {
-                        path: 'answers',
-                        model: 'answer'
+                question_model.remove({ id_survey: req.body.id_survey}, function(err) {
+                    if (err) {
+                        res.send(err);
                     }
-                }).exec(function (err, surveys) {
-                    if(err) res.send(err);
-                    else{
-                        res.json(surveys);
+                    else {
+                        answer_model.remove({id_survey: req.body.id_survey}, function (err) {
+                            if (err) {
+                                res.send(err);
+                            }
+                            else {
+                                survey_model.find({}).populate({
+                                    path: "questions", model: "question", populate: {
+                                        path: 'answers',
+                                        model: 'answer'
+                                    }
+                                }).exec(function (err, surveys) {
+                                    if (err) res.send(err);
+                                    else {
+                                        res.json(surveys);
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
             }

@@ -12,7 +12,7 @@ var answer_model = require('../models/answer');
 var sanitize = require('mongo-sanitize');
 
 
-/** APPLI
+/** Appli side
  * send the list of questions of the current survey
  * Working
  * @param req
