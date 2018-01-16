@@ -4,16 +4,11 @@
 
 var answer_user_model = require('../models/schema_answers_user');
 var mongoose = require('mongoose');
-var database = require('../../config/database');
 
 
-exports.new_answer_user = function(req, res, next) {
-    var db = mongoose.connection;
-    mongoose.connect(database.url);
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.on('open', function () {
-        console.log("we're connected!");
-        console.log("******\n");
+
+exports.new_answer_user = function(req, res) {
+
         var answer = {
             id_user: req.body.id_contact,
             id_survey: req.params.id_survey,
@@ -22,15 +17,10 @@ exports.new_answer_user = function(req, res, next) {
         };
         console.log(answer);
         new answer_user_model(answer).save(function (err) {
-            if (err) return next(err);
+            if (err) res.send(err);
             else{
-                res.end("answer user saved");
-                mongoose.connection.close();
+                res.send("answer user saved");
             }
         });
-    });
-    // When the connection is disconnected
-    db.on('disconnected', function () {
-        console.log('Mongoose default connection disconnected');
-    });
+
 };
