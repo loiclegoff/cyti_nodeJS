@@ -39,9 +39,41 @@ exports.list_questions_with_answers = function(req, res) {
  */
 exports.add_question_with_answers = function(req, res ){
 
+        const id_no = ObjectId();
+        const id_yes = ObjectId();
         var answers_array = req.body.answers;
         function create_answers(answers_array){
             answers_array = req.body.answers;
+            if(req.body.question_type === "YesNo"){
+                var answer_yes = {
+                    _id: id_yes,
+                    id_question: req.body.id_question,
+                    id_survey: req.body.id_survey,
+                    position: 0,
+                    txt: "Yes"
+                };
+                var answer_no = {
+                    _id: id_no,
+                    id_question: req.body.id_question,
+                    id_survey: req.body.id_survey,
+                    position: 1,
+                    txt: "No"
+                };
+                var answers = [];
+                new answer_model(answer_yes).save(function (err, answer_y) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    new answer_model(answer_no).save(function (err, answer_n) {
+                        if (err) {
+                            res.send(err);
+                        }
+                        answers.push(answer_n);
+                        answers.push(answer_y);
+                        return answers;
+                    });
+                });
+            }
             for (var i = 0 in answers_array) {
                 var answer = {
                     _id: ObjectId(answers_array[i].id_answer),
@@ -59,9 +91,14 @@ exports.add_question_with_answers = function(req, res ){
             }
         }
         var ids_array = [];
+        if(req.body.question_type === "YesNo"){
+            ids_array.push(id_yes);
+            ids_array.push(id_no);
+        }
         for(var j = 0 in answers_array){
             ids_array.push(answers_array[j].id_answer);
         }
+        console.log(ids_array);
         var question = {
             _id: ObjectId(req.body.id_question),
             id_survey: req.body.id_survey,
