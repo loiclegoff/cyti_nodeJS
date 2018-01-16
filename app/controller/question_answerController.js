@@ -30,8 +30,8 @@ exports.list_questions_with_answers = function(req, res, next) {
             model:"answer"}).exec(function (err, questions) {
             if (err) return next(err);
             console.log(questions);
-            res.json(questions);
-            //res.end(JSON.stringify(questions));
+            //res.json(questions);
+            res.end(JSON.stringify(questions));
             mongoose.connection.close();
         });
     });
