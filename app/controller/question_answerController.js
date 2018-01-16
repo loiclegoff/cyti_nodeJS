@@ -114,7 +114,7 @@ exports.add_question_with_answers = function(req, res ){
                 res.send(err);
             }
             survey_model.findByIdAndUpdate(req.body.id_survey, {
-                $push: { questions: question._id }}, {upsert:true}, function (err) {
+                $push: { questions: question._id }}, /*{upsert:true}, */function (err) {
                 if (err) res.status(500).send(err);
                 else {
                     survey_model.find({}).populate({
@@ -145,7 +145,7 @@ exports.delete_question = function (req, res){
     console.log("req.body "+ JSON.stringify(req.body));
     console.log("req.body.id_survey : " +req.body.id_survey );
         survey_model.findByIdAndUpdate(req.body.id_survey, {
-            $pull: { questions: req.body.id_question }}, {upsert:true}, function (err, survey) {
+            $pull: { questions: req.body.id_question }}, /*{upsert:true},*/ function (err, survey) {
             if (err) res.status(500).send(err);
             console.log("survey :" + survey + "\n");
             console.log("id question : "+ req.body.id_question + " deleted\n");
