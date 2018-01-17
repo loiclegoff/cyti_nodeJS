@@ -105,6 +105,7 @@ exports.check_user = function(req, res, next){
 };
 
 exports.updates_after_survey = function(req, res){
+    console.log(req.body);
     user_model.findById(req.body.id_user, function(err, user) {
         if (err) res.status(500).send(err);
         else {
