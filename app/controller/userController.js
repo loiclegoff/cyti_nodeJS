@@ -92,7 +92,9 @@ exports.check_user = function(req, res, next){
                             // it means the database had an error while searching, hence the 500 status
                             res.status(500).send(err);
                         } else {
-                            res.end(JSON.stringify(user));
+                            var test=[];
+                            test.push(JSON.stringify(user));
+                            res.end(test);
                         }
                     });
                 });
