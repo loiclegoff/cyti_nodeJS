@@ -105,9 +105,11 @@ exports.change_status_survey = function(req, res){
  */
 exports.list_surveys_online = function(req, res) {
 
+    console.log(req.body);
     user_model.findById(req.body.id_user, function (err, user) {
         if (err) res.status(500).send(err);
         else {
+            console.log("user : " + user);
             survey_model.find({"status": "online"})
                 .where('_id').nin(user.surveys, function (err, survey) {
                 if (err) {
@@ -116,6 +118,7 @@ exports.list_surveys_online = function(req, res) {
                     res.status(500).send(err);
                 }
                 else {
+                    console.log("ici");
                     res.json(survey);
                 }
             });
