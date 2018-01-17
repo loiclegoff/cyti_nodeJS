@@ -22,5 +22,5 @@ var userSchema = new Schema({
     url_fb_picture: String
 });
 
-module.exports = mongoose.model('user', userSchema);
-
+var user=mongoose.model('user', userSchema);
+module.exports = user;

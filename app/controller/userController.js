@@ -67,7 +67,7 @@ exports.check_user = function(req, res, next){
                 return next(err);
             }
             if(user[0] != null){
-                res.end(JSON.stringify(user));
+                res.json(user);
             }else{
                 var user = {
                     id_facebook: req.params.id_facebook,
@@ -94,7 +94,8 @@ exports.check_user = function(req, res, next){
                         } else {
                             var test=[];
                             test.push(JSON.stringify(user));
-                            res.end(test);
+                            console.log(test);
+                            res.json([user]);
                         }
                     });
                 });
