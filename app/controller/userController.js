@@ -103,3 +103,20 @@ exports.check_user = function(req, res, next){
 
         });        
 };
+
+exports.updates_after_survey = function(req, res){
+    user_model.findById(req.body.id_user, function(err, user) {
+        if (err) res.status(500).send(err);
+        else {
+            var points_user = user.points + 50;
+            user_model.findByIdAndUpdate(req.body.id_user, {$push: {surveys: req.params.id_survey},
+                $set: {points: points_user}}, {new: true}, function (err, user) {
+                    if (err) res.send(err);
+                    else {
+                        console.log("new update point: " + user.points + " surveys_array : " + user.surveys);
+                    }
+                });
+        }
+    });
+};
+
