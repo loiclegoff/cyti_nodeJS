@@ -17,7 +17,9 @@ var userSchema = new Schema({
     login: String,
     mdp: String,
     owner: Boolean,
-    surveys: [Schema.Types.ObjectId]
+    surveys: [Schema.Types.ObjectId],
+    points: Number,
+    url_fb_picture: String
 });
 
 module.exports = mongoose.model('user', userSchema);
