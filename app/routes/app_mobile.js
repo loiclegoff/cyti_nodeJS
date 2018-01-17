@@ -36,7 +36,7 @@ var allowCrossDomain = function(req, res, next) {
 router.use(allowCrossDomain);
 
 // define the home page of app/ route
-router.get('/', survey_controller.list_surveys_online);
+router.post('/', survey_controller.list_surveys_online);
 
 // define the /:id_survey page of app/ route
 router.get('/:id_survey', question_controller.list_questions_with_answers);
