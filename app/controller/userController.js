@@ -25,7 +25,7 @@ exports.new_user = function(req, res) {
     		owner: 0,
     		points : "1050"
     	};
-        new user_model(user).save(function (err, user) {
+        new user_model(user).save(function (err, user) {    
             if (err) {
                 throw err;
             }

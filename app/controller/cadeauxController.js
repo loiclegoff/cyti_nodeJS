@@ -3,7 +3,6 @@
  */
 
 var mongoose = require('mongoose');
-var database = require('../../config/database');
 var cadeaux_model = require('../models/cadeaux');
 
 //sanitizes inputs against query selector injection attacks
@@ -17,12 +16,6 @@ var sanitize = require('mongo-sanitize');
  */
 exports.new_cadeau = function(req, res) {
 
-    var db = mongoose.connection;
-    mongoose.connect(database.url);
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.on('open', function () {
-        console.log("we're connected!");
-        console.log("******\n");
         var cadeaux = {
             title: sanitize("Cadeaux numero 1"),
             description: sanitize("Petit cadeau tres sympa pas cher"),
@@ -42,41 +35,24 @@ exports.new_cadeau = function(req, res) {
                     res.status(500).send(err);
                 } else {
                     res.status(200).send(cadeaux[0]);
-                    mongoose.connection.close();
                 }
             });
         });
-    });
-
-    // When the connection is disconnected
-    db.on('disconnected', function () {
-        console.log('Mongoose default connection disconnected');
-    });
 };
 
 
-exports.list_cadeaux_online = function(req, res, next){
-    var db = mongoose.connection;
-    mongoose.connect(database.url);
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.on('open', function () {
-        console.log("we're connected!");
-        console.log("******\n");
+exports.list_cadeaux_online = function(req, res){
+
         cadeaux_model.find(function (err, cadeaux) {
             if (err) {
                 // Note that this error doesn't mean nothing was found,
                 // it means the database had an error while searching, hence the 500 status
-                return next(err);
+                res.status(500).send(err);
             }
-                mongoose.connection.close();
-                res.end(JSON.stringify(cadeaux));
+                res.json(cadeaux);
 
         });
-    });
-    // When the connection is disconnected
-    db.on('disconnected', function () {
-        console.log('Mongoose default connection disconnected');
-    });
+
 };
 
 

@@ -1,71 +1,58 @@
 /**
  * Created by Robin on 10/01/2018.
  */
-
 var mongoose = require('mongoose');
 var database = require('../../config/database');
 var survey_model = require('../models/survey');
+var question_model = require('../models/question');
+var answer_model = require('../models/answer');
 
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
 
 
 exports.list_all = function(req, res){
-    var db = mongoose.connection;
-    mongoose.connect(database.url);
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.on('open', function () {
-        console.log("we're connected!");
-        console.log("******\n");
-        survey_model.find({}).populate({path: "questions", model: "question", populate: { path: 'answers',
-            model: 'answer'}}).exec(function (err, surveys) {
-            res.end(JSON.stringify(surveys));
-            mongoose.connection.close();
-        });
-    // When the connection is disconnected
-    db.on('disconnected', function () {
-        console.log('Mongoose default connection disconnected');
-    });
-});
 
+    survey_model.find({}).populate({path: "questions", model: "question", populate: { path: 'answers',
+        model: 'answer'}}).exec(function (err, surveys) {
+        if(err){
+            res.send(err);
+        }
+        else{
+            res.json(surveys);
+        }
+    });
 };
 
-/** FRONT
+/** Front Side
  * Create a new survey in survey collection
  *
  * @param req
  * @param res
  */
-exports.new_survey = function(req, res, next) {
-    var db = mongoose.connection;
-    mongoose.connect(database.url);
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.on('open', function () {
-        console.log("we're connected!");
-        console.log("******\n");
-        var survey = {
-            _id: req.body.id_survey,
-            title: sanitize(req.body.title),
-            description: sanitize(req.body.description),
-            survey_type: sanitize(req.body.survey_type),
-            theme: sanitize(req.body.theme),
-            status: "offline",
-            duration: ""
-        };
-        new survey_model(survey).save(function (err) {
-            if (err) {
-                throw err;
-            }
+exports.new_survey = function(req, res) {
+    var survey = {
+        _id: req.body.id_survey,
+        title: sanitize(req.body.title),
+        description: sanitize(req.body.description),
+        survey_type: sanitize(req.body.survey_type),
+        theme: sanitize(req.body.theme),
+        status: "offline",
+        duration: ""
+    };
+    new survey_model(survey).save(function (err) {
+        if (err) {
+            res.send(err);
+        }
+        else{
             survey_model.find({}).populate({path: "questions", model: "question", populate: { path: 'answers',
                 model: 'answer'}}).exec(function (err, surveys) {
-                    res.end(JSON.stringify(surveys));
-                    mongoose.connection.close();
-                });
+                if(err) res.send(err);
+                else{
+                    res.json(surveys);
+                }
             });
-        });
-    // When the connection is disconnected
-    db.on('disconnected', function () {
-        console.log('Mongoose default connection disconnected');
+        }
     });
 };
 
@@ -76,40 +63,37 @@ exports.new_survey = function(req, res, next) {
  * @param req
  * @param res
  */
-exports.change_status_survey = function(req, res, next){
-    var db = mongoose.connection;
-    mongoose.connect(database.url);
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.on('open', function () {
-        console.log("we're connected!");
-        console.log("******\n");
-        survey_model.findById(req.body.id_survey,function(err, survey) {
-            if (err) {
-                // Note that this error doesn't mean nothing was found,
-                // it means the database had an error while searching, hence the 500 status
-                return next(err);
-                //res.status(500).send(err);
-            } else {
-                if(survey.status === "offline") survey.status = "online";
-                else survey.status = "offline";
-                survey.save( function(err){
-                    if (err) {
-                        return next(err);
-                    }
+exports.change_status_survey = function(req, res){
+
+    survey_model.findById(req.body.id_survey,function(err, survey) {
+        if (err) {
+            // Note that this error doesn't mean nothing was found,
+            // it means the database had an error while searching, hence the 500 status
+            res.status(500).send(err);
+        } else {
+            if(survey.status === "offline") survey.status = "online";
+            else survey.status = "offline";
+            survey.save( function(err){
+                if (err) {
+                    res.send(err);
+                }
+                else{
                     survey_model.find({}).populate({path: "questions", model: "question", populate: { path: 'answers',
                         model: 'answer'}}).exec(function (err, surveys) {
-                        res.end(JSON.stringify(surveys));
-                        mongoose.connection.close();
+                        if (err) {
+                            res.send(err);
+                        }
+                        else {
+                            res.json(surveys);
+                        }
                     });
-                });
-            }
-        });
-    });
-    // When the connection is disconnected
-    db.on('disconnected', function () {
-        console.log('Mongoose default connection disconnected');
+                }
+            });
+        }
     });
 };
+
+
 
 /** Application side
  *
@@ -117,31 +101,20 @@ exports.change_status_survey = function(req, res, next){
  *
  * @param req
  * @param res
- * @param next
  */
-exports.list_surveys_online = function(req, res, next){
-    var db = mongoose.connection;
-    mongoose.connect(database.url);
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.on('open', function () {
-        console.log("we're connected!");
-        console.log("******\n");
-        console.log("ici on passe");
-        survey_model.find({"status": "online"}, function (err, survey) {
-            if (err) {
-                // Note that this error doesn't mean nothing was found,
-                // it means the database had an error while searching, hence the 500 status
-                return next(err);
-            }
-                mongoose.connection.close();
-                res.end(JSON.stringify(survey));
+exports.list_surveys_online = function(req, res){
 
-        });
+    survey_model.find({"status": "online"}, function (err, survey) {
+        if (err) {
+            // Note that this error doesn't mean nothing was found,
+            // it means the database had an error while searching, hence the 500 status
+            res.status(500).send(err);
+        }
+         else{
+            res.json(survey);
+        }
     });
-    // When the connection is disconnected
-    db.on('disconnected', function () {
-        console.log('Mongoose default connection disconnected');
-    });
+
 };
 
 /** Front side
@@ -149,34 +122,77 @@ exports.list_surveys_online = function(req, res, next){
  * Delete a specified survey from its ID in BD
  * @param req
  * @param res
- * @param next
  */
-exports.delete_survey = function(req, res, next){
-    var db = mongoose.connection;
-    mongoose.connect(database.url);
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.on('open', function () {
-        console.log("we're connected!");
-        console.log("******\n");
+exports.delete_survey = function(req, res){
+
         survey_model.findByIdAndRemove(req.body.id_survey,function(err) {
             if (err) {
-                return next(err);
+                res.status(500).send(err);
             } else {
-                survey_model.find({}).populate({
-                    path: "questions", model: "question", populate: {
-                        path: 'answers',
-                        model: 'answer'
+                question_model.remove({ id_survey: req.body.id_survey}, function(err) {
+                    if (err) {
+                        res.send(err);
                     }
-                }).exec(function (err, surveys) {
-                    res.end(JSON.stringify(surveys));
-                    mongoose.connection.close();
+                    else {
+                        answer_model.remove({id_survey: req.body.id_survey}, function (err) {
+                            if (err) {
+                                res.send(err);
+                            }
+                            else {
+                                survey_model.find({}).populate({
+                                    path: "questions", model: "question", populate: {
+                                        path: 'answers',
+                                        model: 'answer'
+                                    }
+                                }).exec(function (err, surveys) {
+                                    if (err) res.send(err);
+                                    else {
+                                        res.json(surveys);
+                                    }
+                                });
+                            }
+                        });
+                    }
                 });
             }
         });
-    });
-    // When the connection is disconnected
-    db.on('disconnected', function () {
-        console.log('Mongoose default connection disconnected');
-    });
 };
 
+
+exports.update_survey = function(req, res){
+
+    var modifications = {};
+
+    // Check which parameters are set and add to object.
+    // Indexes set to 'undefined' won't be included.
+    modifications.title = req.body.title ?
+        req.body.title: "undefined";
+
+    modifications.description = req.body.description ?
+        req.body.description: "undefined";
+
+    modifications.survey_type = req.body.survey_type ?
+        req.body.survey_type: "undefined";
+
+    modifications.theme = req.body.theme ?
+        req.body.theme: "undefined";
+
+    survey_model.findByIdAndUpdate(req.body.id_survey, {
+        $set: modifications}, {new: true}, function (err, survey) {
+        if (err) res.send(err);
+        else{
+            console.log("new update : " + survey);
+            survey_model.find({}).populate({
+                path: "questions", model: "question", populate: {
+                    path: 'answers',
+                    model: 'answer'
+                }
+            }).exec(function (err, surveys) {
+                if (err) res.send(err);
+                else {
+                    res.json(surveys);
+                }
+            });
+        }
+    });
+};
