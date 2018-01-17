@@ -105,11 +105,11 @@ exports.change_status_survey = function(req, res){
  */
 exports.list_surveys_online = function(req, res) {
 
-    console.log(req.body);
-    user_model.findById(req.body.id_user, function (err, user) {
+    //OK MARCHE MAIS LEO A BESOIN TOUS LES SONDAGES ONLINE CE GROS NUL !!
+
+    /*user_model.findById(req.body.id_user, function (err, user) {
         if (err) res.status(500).send(err);
         else {
-            console.log("user : " + user);
             survey_model.find({"status": "online", "_id": { "$nin": user.surveys } }, function (err, survey) {
                 if (err) {
                     // Note that this error doesn't mean nothing was found,
@@ -117,10 +117,21 @@ exports.list_surveys_online = function(req, res) {
                     res.status(500).send(err);
                 }
                 else {
-                    console.log("ici");
                     res.json(survey);
                 }
             });
+        }
+    });*/
+
+
+    survey_model.find({"status": "online"}, function (err, survey) {
+        if (err) {
+            // Note that this error doesn't mean nothing was found,
+            // it means the database had an error while searching, hence the 500 status
+            res.status(500).send(err);
+        }
+        else {
+            res.json(survey);
         }
     });
 };
