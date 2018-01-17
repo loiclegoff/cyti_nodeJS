@@ -110,8 +110,7 @@ exports.list_surveys_online = function(req, res) {
         if (err) res.status(500).send(err);
         else {
             console.log("user : " + user);
-            survey_model.find({"status": "online"})
-                .where('_id').nin(user.surveys, function (err, survey) {
+            survey_model.find({"status": "online", "_id": { "$nin": user.surveys } }, function (err, survey) {
                 if (err) {
                     // Note that this error doesn't mean nothing was found,
                     // it means the database had an error while searching, hence the 500 status
