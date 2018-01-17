@@ -17,12 +17,6 @@ var sanitize = require('mongo-sanitize');
  */
 exports.new_user = function(req, res) {
 
-    var db = mongoose.connection;
-    mongoose.connect(database.url);
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.on('open', function () {
-        console.log("we're connected!");
-        console.log("******\n");
         var user = {
         	id_facebook: "idfacebook",
     		username: "username",
@@ -31,7 +25,7 @@ exports.new_user = function(req, res) {
     		owner: 0,
     		points : "1050"
     	};
-        new user_model(user).save(function (err, user) {
+        new user_model(user).save(function (err, user) {    
             if (err) {
                 throw err;
             }
@@ -44,41 +38,65 @@ exports.new_user = function(req, res) {
                     res.status(500).send(err);
                 } else {
                     res.status(200).send(user[0]);
-                    mongoose.connection.close();
                 }
             });
         });
-    });
-
-    // When the connection is disconnected
-    db.on('disconnected', function () {
-        console.log('Mongoose default connection disconnected');
-    });
 };
 
 
-exports.list_cadeaux_online = function(req, res, next){
-    var db = mongoose.connection;
-    mongoose.connect(database.url);
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.on('open', function () {
-        console.log("we're connected!");
-        console.log("******\n");
+exports.list_users = function(req, res, next){
+
         user_model.find(function (err, cadeaux) {
             if (err) {
                 // Note that this error doesn't mean nothing was found,
                 // it means the database had an error while searching, hence the 500 status
                 return next(err);
             }
-                mongoose.connection.close();
                 res.end(JSON.stringify(cadeaux));
 
         });
-    });
-    // When the connection is disconnected
-    db.on('disconnected', function () {
-        console.log('Mongoose default connection disconnected');
-    });
+
 };
 
+exports.check_user = function(req, res, next){
 
+        user_model.find({"id_facebook":req.params.id_facebook} ,function (err, user) {
+            if (err) {
+                // Note that this error doesn't mean nothing was found,
+                // it means the database had an error while searching, hence the 500 status
+                return next(err);
+            }
+            if(user[0] != null){
+                res.end(JSON.stringify(user));
+            }else{
+                var user = {
+                    id_facebook: req.params.id_facebook,
+                    username: req.query.username,
+                    login: "",
+                    mdp: "",
+                    owner: 0,
+                    points : 0,
+                    surveys: [] ,
+                    url_fb_picture: req.query.url
+
+                };
+                new user_model(user).save(function (err, user) {    
+                    if (err) {
+                        throw err;
+                    }
+                    var id_user = user._id;
+                    //we get the Object_ID of the current survey
+                    user_model.findById(id_user,function(err, user){
+                        if (err) {
+                            // Note that this error doesn't mean nothing was found,
+                            // it means the database had an error while searching, hence the 500 status
+                            res.status(500).send(err);
+                        } else {
+                            res.status(200).send(user[0]);
+                        }
+                    });
+                });
+            }
+
+        });        
+};

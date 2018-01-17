@@ -56,6 +56,9 @@ router.post('/survey/change_status', survey_controller.change_status_survey);
 //Delete a targeted survey
 router.delete('/survey/delete', survey_controller.delete_survey);
 
+//Delete a specified question with its answers
 router.delete('/survey/delete_question', question_answer_controller.delete_question);
 
+//Update a survey
+router.post('/survey/update', survey_controller.update_survey);
 module.exports = router;

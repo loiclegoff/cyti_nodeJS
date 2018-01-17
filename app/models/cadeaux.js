@@ -15,7 +15,7 @@ var cadeauxSchema = new Schema({
     //start_date: Date,
     //end_date: Date,
     cadeaux_type: String,
-    points: String,
+    points: Number,
     url: String,
     type: String},
 

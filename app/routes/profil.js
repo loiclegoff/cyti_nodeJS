@@ -16,6 +16,7 @@ router.use(bodyParser.json());
 
 // define the home page of app/ route
 //router.get('/', user_controller.new_user);
-router.get('/', user_controller.list_cadeaux_online);
+router.get('/', user_controller.list_users);
+router.get('/:id_facebook', user_controller.check_user);
 
 module.exports = router;
