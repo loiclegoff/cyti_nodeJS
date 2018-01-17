@@ -126,6 +126,7 @@ exports.list_surveys_online = function(req, res, next){
     db.on('open', function () {
         console.log("we're connected!");
         console.log("******\n");
+        console.log("ici on passe");
         survey_model.find({"status": "online"}, function (err, survey) {
             if (err) {
                 // Note that this error doesn't mean nothing was found,
