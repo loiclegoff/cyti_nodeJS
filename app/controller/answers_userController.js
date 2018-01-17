@@ -3,12 +3,11 @@
  */
 
 var answer_user_model = require('../models/schema_answers_user');
-var mongoose = require('mongoose');
-
 
 
 exports.new_answer_user = function(req, res) {
 
+    console.log(req.body);
         var answer = {
             id_user: req.body.id_contact,
             id_survey: req.params.id_survey,
