@@ -20,7 +20,7 @@ exports.new_cadeau = function(req, res) {
             title: sanitize("Cadeaux numero 1"),
             description: sanitize("Petit cadeau tres sympa pas cher"),
             cadeaux_type: sanitize("1"),
-            points: sanitize("45"),
+            points: 45,
             url: sanitize("https://shoutem.github.io/img/ui-toolkit/examples/image-7.png")        };
         new cadeaux_model(cadeaux).save(function (err, cadeaux) {
             if (err) {
