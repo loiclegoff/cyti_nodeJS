@@ -150,3 +150,15 @@ exports.updates_after_survey = function(req, res){
     });
 };
 
+
+exports.list_surveys_completed = function(req, res){
+    user_model.findById(req.query.id_user).populate({
+        path: "surveys", model: "survey", select: ' -id_facebook -username -login -mdp ' +
+        '-points -url_fb_picture'}).exec(function(err, user ) {
+        if (err) res.send(err);
+        else {
+            res.json(user);
+        }
+    });
+};
+

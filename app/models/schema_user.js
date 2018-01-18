@@ -17,7 +17,7 @@ var userSchema = new Schema({
     login: String,
     mdp: String,
     owner: Boolean,
-    surveys: [Schema.Types.ObjectId],
+    surveys: [{type: Schema.Types.ObjectId, ref: 'survey'}],
     points: Number,
     url_fb_picture: String
     },{

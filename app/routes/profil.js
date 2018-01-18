@@ -21,4 +21,6 @@ router.get('/:id_facebook', user_controller.check_user);
 //router.get('/create', user_controller.list_users);
 router.get('/removePoints/page', user_controller.remove_points);
 
+router.get('/surveys', user_controller.list_surveys_completed);
+
 module.exports = router;
