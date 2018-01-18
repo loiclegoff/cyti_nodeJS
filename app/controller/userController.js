@@ -157,8 +157,39 @@ exports.list_surveys_completed = function(req, res){
         '-points -url_fb_picture'}).exec(function(err, user ) {
         if (err) res.send(err);
         else {
-            res.json(user.surveys);
+        var myObj, x;
+
+        
+        myObj = {
+            "surveys":user.surveys,
+            "beauty":0,
+            "sport":0,
+            "shopping":0,
+            "mode":0,
+            "total":0
+        };
+        user.surveys.map(function(item) { 
+          switch(item.theme) {
+                case "beauty":
+                    myObj.beauty = Number(myObj.beauty)+1;
+                    break;
+                case "sport":
+                    myObj.sport = Number(myObj.sport)+1;
+                    break;
+                case "shopping":
+                    myObj.shopping = Number(myObj.shopping)+1;
+                    break;
+                case "mode":
+                    myObj.mode = Number(myObj.mode)+1;
+                    break;
+                default:
+            }       
+        });
+            myObj.total=Number(myObj.beauty)+Number(myObj.mode)+Number(myObj.sport)+Number(myObj.shopping);
+            res.json(myObj);
         }
+
+
     });
 };
 
