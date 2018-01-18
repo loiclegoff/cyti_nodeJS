@@ -7,6 +7,7 @@ var survey_model = require('../models/survey');
 var question_model = require('../models/question');
 var answer_model = require('../models/answer');
 var user_model = require('../models/schema_user');
+var json_parsing = require('../../parsing_json');
 
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
@@ -216,3 +217,41 @@ exports.update_survey = function(req, res){
         }
     });
 };
+
+exports.json_file_stats = function(req, res){
+
+
+
+    survey_model.findById(req.body.id_survey).populate({path: "questions", model: "question",
+        select: '-id_survey -position -txt -type -mandatory', populate: { path: 'answers',
+        model: 'answer', select: ' -id_question -id_survey -position -txt'}}).exec(function (err, surveys) {
+        if(err){
+            res.send(err);
+        }
+        else{
+
+            for(var i=0; i < surveys.questions.length; i++){
+                /*surveys.questions[i].forEach(function(element) {
+                    console.log(element + "t");
+                });*/
+                if(surveys.questions[i].answers.length !== 0){
+                    surveys.questions[i].answers.forEach(function(element){
+                        element.value = "toto";
+                        console.log(element);
+                    });
+                    //console.log(surveys.questions[i].answers);
+
+                }
+
+            }
+
+            /*surveys.questions.forEach(function(element) {
+                console.log(element.answers + "t");
+            });*/
+        }
+    });
+
+};
+
+
+

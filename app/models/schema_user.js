@@ -20,7 +20,10 @@ var userSchema = new Schema({
     surveys: [Schema.Types.ObjectId],
     points: Number,
     url_fb_picture: String
+    },{
+    versionKey: false
 });
+
 
 
 var user=mongoose.model('user', userSchema);
