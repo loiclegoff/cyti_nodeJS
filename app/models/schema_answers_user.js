@@ -19,7 +19,6 @@ var answers_userSchema = new Schema({
     });
 
 
+var answers_user = mongoose.model('answers_user', answers_userSchema);
 
-
-
-module.exports = mongoose.model('answers_user', answers_userSchema);
+module.exports = answers_user;

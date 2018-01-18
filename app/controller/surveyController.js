@@ -6,6 +6,7 @@ var database = require('../../config/database');
 var survey_model = require('../models/survey');
 var question_model = require('../models/question');
 var answer_model = require('../models/answer');
+var user_model = require('../models/schema_user');
 
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
@@ -102,7 +103,26 @@ exports.change_status_survey = function(req, res){
  * @param req
  * @param res
  */
-exports.list_surveys_online = function(req, res){
+exports.list_surveys_online = function(req, res) {
+
+    //OK MARCHE MAIS LEO A BESOIN TOUS LES SONDAGES ONLINE CE GROS NUL !!
+
+    /*user_model.findById(req.body.id_user, function (err, user) {
+        if (err) res.status(500).send(err);
+        else {
+            survey_model.find({"status": "online", "_id": { "$nin": user.surveys } }, function (err, survey) {
+                if (err) {
+                    // Note that this error doesn't mean nothing was found,
+                    // it means the database had an error while searching, hence the 500 status
+                    res.status(500).send(err);
+                }
+                else {
+                    res.json(survey);
+                }
+            });
+        }
+    });*/
+
 
     survey_model.find({"status": "online"}, function (err, survey) {
         if (err) {
@@ -110,12 +130,12 @@ exports.list_surveys_online = function(req, res){
             // it means the database had an error while searching, hence the 500 status
             res.status(500).send(err);
         }
-         else{
+        else {
             res.json(survey);
         }
     });
-
 };
+
 
 /** Front side
  *

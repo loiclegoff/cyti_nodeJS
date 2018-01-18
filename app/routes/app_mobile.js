@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var question_controller = require('../controller/question_answerController');
 var survey_controller = require('../controller/surveyController');
 var answer_user_controller = require('../controller/answers_userController');
+var user_controller = require('../controller/userController');
 
 //Body parser
 router.use(bodyParser.urlencoded({
@@ -35,12 +36,14 @@ var allowCrossDomain = function(req, res, next) {
 router.use(allowCrossDomain);
 
 // define the home page of app/ route
-router.get('/', survey_controller.list_surveys_online);
+router.post('/', survey_controller.list_surveys_online);
 
 // define the /:id_survey page of app/ route
 router.get('/:id_survey', question_controller.list_questions_with_answers);
 
 router.post('/:id_survey/new_answer', answer_user_controller.new_answer_user);
+
+router.post('/:id_survey/finish', user_controller.updates_after_survey);
 
 
 module.exports = router;
