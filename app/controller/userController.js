@@ -5,6 +5,7 @@
 var mongoose = require('mongoose');
 var database = require('../../config/database');
 var user_model = require('../models/schema_user');
+var cadeaux_model = require('../models/cadeaux');
 
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
@@ -46,17 +47,45 @@ exports.new_user = function(req, res) {
 
 exports.list_users = function(req, res, next){
 
-        user_model.find(function (err, cadeaux) {
+        user_model.find(function (err, user) {
             if (err) {
                 // Note that this error doesn't mean nothing was found,
                 // it means the database had an error while searching, hence the 500 status
                 return next(err);
             }
-                res.end(JSON.stringify(cadeaux));
+                res.end(JSON.stringify(user));
 
         });
 
 };
+
+
+exports.remove_points = function(req, res, next){
+
+        user_model.findByIdAndUpdate(req.query.id, { $set: {points : req.query.points}}, function (err, user) {
+            if (err) {
+                // Note that this error doesn't mean nothing was found,
+                // it means the database had an error while searching, hence the 500 status
+                return next(err);
+                res.status(500).send(err);
+            }
+            
+
+
+        });
+
+        cadeaux_model.find({ points : { $lte: req.query.points}}, function (err, cadeaux) {
+            if (err) {
+                // Note that this error doesn't mean nothing was found,
+                // it means the database had an error while searching, hence the 500 status
+                res.status(500).send(err);
+            }
+                res.json(cadeaux);
+
+        });
+
+};
+
 
 exports.check_user = function(req, res, next){
 
@@ -76,7 +105,7 @@ exports.check_user = function(req, res, next){
                     mdp: "",
                     owner: 0,
                     points : 0,
-                    surveys: [] ,
+                    surveys: [],
                     url_fb_picture: req.query.url
 
                 };
