@@ -157,7 +157,7 @@ exports.list_surveys_completed = function(req, res){
         '-points -url_fb_picture'}).exec(function(err, user ) {
         if (err) res.send(err);
         else {
-            res.json(user);
+            res.json(user.surveys);
         }
     });
 };
