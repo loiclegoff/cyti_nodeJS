@@ -104,7 +104,7 @@ exports.check_user = function(req, res, next){
                     owner: 0,
                     points : 0,
                     surveys: [],
-                    url_fb_picture: req.body.url
+                    url_fb_picture: req.body.lien
 
                 };
                 new user_model(user).save(function (err, user) {    
