@@ -63,6 +63,7 @@ exports.new_survey = function(req, res) {
         //picture_url: picture,
         duration: ""
     };
+    console.log(survey);
     new survey_model(survey).save(function (err) {
         if (err) {
             res.send(err);

@@ -160,7 +160,8 @@ exports.updates_after_survey = function(req, res){
                     }, {new: true}, function (err, user) {
                         if (err) res.send(err);
                         else {
-                            console.log("new update point: " + user.points + " surveys_array : " + user.surveys);
+                            console.log("new update point: " + user.points + " surveys_array : "
+                                + user.surveys+ " surveys points : " + survey_points);
                         }
                     });
                 }
