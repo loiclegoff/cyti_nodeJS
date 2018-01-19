@@ -180,7 +180,7 @@ exports.list_surveys_completed = function(req, res){
         if (err) res.send(err);
         else {
         var myObj, x;
-
+        console.log(user);
         
         myObj = {
             "surveys":user.surveys,
