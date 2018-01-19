@@ -92,10 +92,9 @@ exports.check_user = function(req, res, next){
                 // it means the database had an error while searching, hence the 500 status
                 return next(err);
             }
-            if(user[0] !== null){
+            if(user[0] != null){
                 console.log(user);
                 console.log("id facebook " + req.body.id_facebook + " lien " + req.body.lien + " username " + req.body.username);
-                console.log("ici " + req.body);
                 res.json(user);
             }else{
                 var user = {
@@ -106,7 +105,7 @@ exports.check_user = function(req, res, next){
                     owner: 0,
                     points : 0,
                     surveys: [],
-                    url_fb_picture: req.body.lien
+                    url_fb_picture: req.body.url
 
                 };
                 new user_model(user).save(function (err, user) {    
