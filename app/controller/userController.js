@@ -87,26 +87,27 @@ exports.remove_points = function(req, res, next){
 };
 
 
-exports.check_user = function(req, res, next){
 
-        user_model.find({"id_facebook":req.params.id_facebook} ,function (err, user) {
+exports.check_user = function(req, res, next){
+    user_model.find({"id_facebook":req.body.id_facebook} ,function (err, user) {
             if (err) {
                 // Note that this error doesn't mean nothing was found,
                 // it means the database had an error while searching, hence the 500 status
                 return next(err);
             }
             if(user[0] != null){
+                console.log(user);
                 res.json(user);
             }else{
                 var user = {
-                    id_facebook: req.params.id_facebook,
-                    username: req.query.username,
+                    id_facebook: req.body.id_facebook,
+                    username: req.body.username,
                     login: "",
                     mdp: "",
                     owner: 0,
                     points : 0,
                     surveys: [],
-                    url_fb_picture: req.query.url
+                    url_fb_picture: req.body.url
 
                 };
                 new user_model(user).save(function (err, user) {    
@@ -123,7 +124,6 @@ exports.check_user = function(req, res, next){
                         } else {
                             var test=[];
                             test.push(JSON.stringify(user));
-                            console.log(test);
                             res.json([user]);
                         }
                     });
@@ -131,6 +131,7 @@ exports.check_user = function(req, res, next){
             }
 
         });        
+
 };
 
 exports.updates_after_survey = function(req, res){

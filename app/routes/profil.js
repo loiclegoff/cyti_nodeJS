@@ -17,7 +17,7 @@ router.use(bodyParser.json());
 // define the home page of app/ route
 //router.get('/', user_controller.new_user);
 router.get('/', user_controller.list_users);
-router.get('/:id_facebook', user_controller.check_user);
+router.post('/checkUser/facebookConnexion',user_controller.check_user);
 //router.get('/create', user_controller.list_users);
 router.get('/removePoints/page', user_controller.remove_points);
 
