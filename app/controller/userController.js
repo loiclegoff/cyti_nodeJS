@@ -84,26 +84,27 @@ exports.remove_points = function(req, res){
 };
 
 
-exports.check_user = function(req, res, next){
 
-        user_model.find({"id_facebook":req.params.id_facebook} ,function (err, user) {
+exports.check_user = function(req, res, next){
+    user_model.find({"id_facebook":req.body.id_facebook} ,function (err, user) {
             if (err) {
                 // Note that this error doesn't mean nothing was found,
                 // it means the database had an error while searching, hence the 500 status
                 return next(err);
             }
             if(user[0] !== null){
+                console.log(user);
                 res.json(user);
             }else{
                 var user = {
-                    id_facebook: req.params.id_facebook,
-                    username: req.query.username,
+                    id_facebook: req.body.id_facebook,
+                    username: req.body.username,
                     login: "",
                     mdp: "",
                     owner: 0,
                     points : 0,
                     surveys: [],
-                    url_fb_picture: req.query.url
+                    url_fb_picture: req.body.url
 
                 };
                 new user_model(user).save(function (err, user) {    
@@ -120,7 +121,6 @@ exports.check_user = function(req, res, next){
                         } else {
                             var test=[];
                             test.push(JSON.stringify(user));
-                            console.log(test);
                             res.json([user]);
                         }
                     });
@@ -128,6 +128,7 @@ exports.check_user = function(req, res, next){
             }
 
         });        
+
 };
 
 exports.updates_after_survey = function(req, res){
@@ -177,8 +178,39 @@ exports.list_surveys_completed = function(req, res){
         '-points -url_fb_picture'}).exec(function(err, user ) {
         if (err) res.send(err);
         else {
-            res.json(user);
+        var myObj, x;
+
+        
+        myObj = {
+            "surveys":user.surveys,
+            "beauty":0,
+            "sport":0,
+            "shopping":0,
+            "mode":0,
+            "total":0
+        };
+        user.surveys.map(function(item) { 
+          switch(item.theme) {
+                case "beauty":
+                    myObj.beauty = Number(myObj.beauty)+1;
+                    break;
+                case "sport":
+                    myObj.sport = Number(myObj.sport)+1;
+                    break;
+                case "shopping":
+                    myObj.shopping = Number(myObj.shopping)+1;
+                    break;
+                case "mode":
+                    myObj.mode = Number(myObj.mode)+1;
+                    break;
+                default:
+            }       
+        });
+            myObj.total=Number(myObj.beauty)+Number(myObj.mode)+Number(myObj.sport)+Number(myObj.shopping);
+            res.json(myObj);
         }
+
+
     });
 };
 
