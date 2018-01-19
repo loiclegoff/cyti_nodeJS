@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var database = require('../../config/database');
 var user_model = require('../models/schema_user');
 var cadeaux_model = require('../models/cadeaux');
+var survey_model = require('../models/survey');
 
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
@@ -60,18 +61,14 @@ exports.list_users = function(req, res, next){
 };
 
 
-exports.remove_points = function(req, res, next){
+exports.remove_points = function(req, res){
 
-        user_model.findByIdAndUpdate(req.query.id, { $set: {points : req.query.points}}, function (err, user) {
+        user_model.findByIdAndUpdate(req.query.id, { $set: {points : req.query.points}}, function (err) {
             if (err) {
                 // Note that this error doesn't mean nothing was found,
                 // it means the database had an error while searching, hence the 500 status
-                return next(err);
                 res.status(500).send(err);
             }
-            
-
-
         });
 
         cadeaux_model.find({ points : { $lte: req.query.points}}, function (err, cadeaux) {
@@ -95,7 +92,7 @@ exports.check_user = function(req, res, next){
                 // it means the database had an error while searching, hence the 500 status
                 return next(err);
             }
-            if(user[0] != null){
+            if(user[0] !== null){
                 res.json(user);
             }else{
                 var user = {
@@ -135,7 +132,7 @@ exports.check_user = function(req, res, next){
 
 exports.updates_after_survey = function(req, res){
 
-    user_model.findById(req.body.id_user, function(err, user) {
+    /*user_model.findById(req.body.id_user, function(err, user) {
         if (err) res.status(500).send(err);
         else {
             var points_user = user.points + 50;
@@ -147,7 +144,30 @@ exports.updates_after_survey = function(req, res){
                     }
                 });
         }
+    });*/
+    survey_model.findById(req.params.id_survey, function(err, survey){
+        if(err) res.status(500).send(err);
+        else{
+            var survey_points = survey.points;
+            user_model.findById(req.body.id_user, function(err, user) {
+                if (err) res.status(500).send(err);
+                else {
+                    var points_user = user.points + survey_points;
+                    user_model.findByIdAndUpdate(req.body.id_user, {
+                        $push: {surveys: req.params.id_survey},
+                        $set: {points: points_user}
+                    }, {new: true}, function (err, user) {
+                        if (err) res.send(err);
+                        else {
+                            console.log("new update point: " + user.points + " surveys_array : " + user.surveys);
+                        }
+                    });
+                }
+            });
+        }
     });
+
+
 };
 
 

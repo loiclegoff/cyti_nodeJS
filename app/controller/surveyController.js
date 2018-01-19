@@ -33,6 +33,25 @@ exports.list_all = function(req, res){
  * @param res
  */
 exports.new_survey = function(req, res) {
+    /*var picture;
+    switch (req.body.theme) {
+        case 'sport':
+            picture= "Sunday";
+            break;
+        case 1:
+            day = "Monday";
+            break;
+        case 2:
+            day = "Tuesday";
+            break;
+        case 3:
+            day = "Wednesday";
+            break;
+        case 4:*/
+    function randomIntInc (low, high) {
+        return Math.floor(Math.random() * (high - low + 1) + low);
+    }
+
     var survey = {
         _id: req.body.id_survey,
         title: sanitize(req.body.title),
@@ -40,6 +59,8 @@ exports.new_survey = function(req, res) {
         survey_type: sanitize(req.body.survey_type),
         theme: sanitize(req.body.theme),
         status: "offline",
+        points: randomIntInc(20,100),
+        //picture_url: picture,
         duration: ""
     };
     new survey_model(survey).save(function (err) {
@@ -252,6 +273,4 @@ exports.json_file_stats = function(req, res){
     });
 
 };
-
-
 

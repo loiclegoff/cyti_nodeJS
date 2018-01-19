@@ -17,7 +17,8 @@ var surveySchema = new Schema({
     survey_type: String,
     theme: String,
     status: String,
-    //picture: String,
+    points: Number,
+    picture_url: String,
     duration: String,
     questions: [{type: Schema.Types.ObjectId, ref: 'question'}]
     },
