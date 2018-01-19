@@ -94,6 +94,7 @@ exports.check_user = function(req, res, next){
             }
             if(user[0] !== null){
                 console.log(user);
+                console.log("ici " + req.body);
                 res.json(user);
             }else{
                 var user = {
