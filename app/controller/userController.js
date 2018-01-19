@@ -94,6 +94,7 @@ exports.check_user = function(req, res, next){
             }
             if(user[0] !== null){
                 console.log(user);
+                console.log("id facebook " + req.body.id_facebook + " lien " + req.body.lien + " username " + req.body.username);
                 console.log("ici " + req.body);
                 res.json(user);
             }else{
