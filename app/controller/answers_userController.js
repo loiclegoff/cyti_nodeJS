@@ -29,11 +29,12 @@ exports.new_answer_user = function(req, res) {
     answer.id_answer = req.body.id_reponse ?
         req.body.id_reponse: "undefined";
 
+    console.log('answer ' + answer);
     answer_user_model.findOneAndUpdate({ "id_question": req.body.id_question }, {
         $set: answer}, {new: true}, function (err) {
         if (err) res.send(err);
         else {
-            res.send("answer user saved");
+            console.log("answer user saved");
         }
     });
 };
