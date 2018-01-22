@@ -129,9 +129,8 @@ exports.change_status_survey = function(req, res){
  */
 exports.list_surveys_online = function(req, res) {
 
-    //OK MARCHE MAIS LEO A BESOIN TOUS LES SONDAGES ONLINE CE GROS NUL !!
 
-    /*user_model.findById(req.body.id_user, function (err, user) {
+    user_model.findById(req.body.id_user, function (err, user) {
         if (err) res.status(500).send(err);
         else {
             survey_model.find({"status": "online", "_id": { "$nin": user.surveys } }, function (err, survey) {
@@ -145,10 +144,10 @@ exports.list_surveys_online = function(req, res) {
                 }
             });
         }
-    });*/
+    });
 
 
-    survey_model.find({"status": "online"}, function (err, survey) {
+    /*survey_model.find({"status": "online"}, function (err, survey) {
         if (err) {
             // Note that this error doesn't mean nothing was found,
             // it means the database had an error while searching, hence the 500 status
@@ -157,7 +156,7 @@ exports.list_surveys_online = function(req, res) {
         else {
             res.json(survey);
         }
-    });
+    });*/
 };
 
 
