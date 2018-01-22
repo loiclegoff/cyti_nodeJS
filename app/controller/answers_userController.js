@@ -32,9 +32,10 @@ exports.new_answer_user = function(req, res) {
     console.log('answer ' + answer);
     answer_user_model.findOneAndUpdate({ "id_question": req.body.id_question }, {
         $set: answer}, {upsert:true}, function (err) {
-        if (err) res.send(err);
+        if (err) return res.send(err);
         else {
             console.log("answer user saved");
+            return res.send("answer user saved");
         }
     });
 };
