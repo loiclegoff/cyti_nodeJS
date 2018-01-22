@@ -240,17 +240,12 @@ exports.update_survey = function(req, res){
         }
     });
 };
-/*
+
 exports.json_file_stats = function(req, res) {
 
-    function count(id_answer) {
-        answer_user.find({'id_answer' : id_answer}).exec(function (err, results) {
-            console.log(results);
-            return results.length;
 
-        });
-    }
-        survey_model.findById(req.query.id_survey).populate({
+        survey_model.findById(req.query.id_survey).select( '-title -description -survey_typ -theme ' +
+            '-status -points -survey_type -duration').populate({
             path: "questions", model: "question",
             select: '-id_survey -position -txt -type -mandatory', populate: {
                 path: 'answers',
@@ -261,22 +256,10 @@ exports.json_file_stats = function(req, res) {
                 res.send(err);
             }
             else {
-                surveys= JSON.parse(JSON.stringify(surveys));
-                for(var i=0 in surveys.questions){
-                    if(surveys.questions[i].answers.length !== 0){
-                        console.log(surveys.questions[i].answers + ' ' +i);
-                        for(var j=0 in surveys.questions[i].answers){
-                            surveys.questions[i].answers[j].value = count(surveys.questions[i].answers[j]._id);
-                            //console.log(surveys.questions[i].answers[j].value + ' i ' + i + ' j ' + j);
-                        }
-                    }
-                }
-
-
+                res.json(surveys);
             }
         });
 };
 
 
-*/
 

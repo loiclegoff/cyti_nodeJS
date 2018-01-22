@@ -135,31 +135,26 @@ exports.check_user = function(req, res, next){
 
 exports.updates_after_survey = function(req, res){
 
-    var count = function(id_answer){
-        answer_user_model.find({'id_answer': id_answer}).exec(function (err, results) {
-            console.log("on passe ici : results length" + results.length);
-            return  results.length;
-        });
-    };
 
     answer_model.find({'id_survey': req.params.id_survey}, function(err, answers) {
-        console.log("ok");
-        for(var i=0 in answers){
-            var value = count(answers[i]);
-            console.log('value ' + value);
+        answers.forEach( function(answer, i){
+            answer_user_model.find({'id_answer': answers[i]._id}).exec(function (err, results) {
+            console.log("on passe ici : results length" + results.length);
+            console.log('i ' + i);
             answer_model.findByIdAndUpdate(answers[i]._id,{
-                $set: {value: value}
+                $set: {value: results.length}
             }, {new: true}, function (err) {
                 if (err) res.send(err);
-                else{
-                    console.log('counting done');
+                else {
+                    console.log('couting done');
                 }
             });
-        }
+        });
+    });
     });
 
 
-    survey_model.findById(req.params.id_survey, function(err, survey){
+     survey_model.findById(req.params.id_survey, function(err, survey){
         if(err) res.status(500).send(err);
         else{
             var survey_points = survey.points;
