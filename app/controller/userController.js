@@ -137,17 +137,22 @@ exports.updates_after_survey = function(req, res){
 
     function count(id_answer){
         answer_user_model.find({'id_answer': id_answer}).exec(function (err, results) {
-            console.log(results.length);
+            console.log("on passe ici : results length" + results.length);
             return  results.length;
         });
     }
 
     answer_model.find({'id_survey': req.params.id_survey}, function(err, answers) {
+        console.log("ok");
         for(var i=0 in answers){
+            var count = count(answers[i]);
             answer_model.findByIdAndUpdate(answers[i]._id,{
-                $set: {value: count(answers[i])}
+                $set: {value: count}
             }, {new: true}, function (err) {
                 if (err) res.send(err);
+                else{
+                    console.log('counting done');
+                }
             });
         }
     });
