@@ -13,6 +13,7 @@ var answers_userSchema = new Schema({
     id_user: String,
     id_survey: String,
     id_question: String,
+    date: { type: Date, default: Date.now },
     id_answer: [String]
     },{
     versionKey: false
