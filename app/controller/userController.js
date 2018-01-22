@@ -135,12 +135,12 @@ exports.check_user = function(req, res, next){
 
 exports.updates_after_survey = function(req, res){
 
-    function count(id_answer){
+    var count = function(id_answer){
         answer_user_model.find({'id_answer': id_answer}).exec(function (err, results) {
             console.log("on passe ici : results length" + results.length);
             return  results.length;
         });
-    }
+    };
 
     answer_model.find({'id_survey': req.params.id_survey}, function(err, answers) {
         console.log("ok");
