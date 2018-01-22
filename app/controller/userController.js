@@ -146,6 +146,7 @@ exports.updates_after_survey = function(req, res){
         console.log("ok");
         for(var i=0 in answers){
             var value = count(answers[i]);
+            console.log('value ' + value);
             answer_model.findByIdAndUpdate(answers[i]._id,{
                 $set: {value: value}
             }, {new: true}, function (err) {
