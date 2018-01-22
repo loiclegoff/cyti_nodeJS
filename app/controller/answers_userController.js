@@ -20,7 +20,7 @@ exports.new_answer_user = function(req, res) {
     answer.id_user = req.body.id_contact ?
         req.body.id_contact: "undefined";
 
-    answer.id_survey = req.body.id_survey ?
+    answer.id_survey = req.params.id_survey ?
         req.params.id_survey: "undefined";
 
     answer.id_question = req.body.id_question ?
