@@ -145,9 +145,9 @@ exports.updates_after_survey = function(req, res){
     answer_model.find({'id_survey': req.params.id_survey}, function(err, answers) {
         console.log("ok");
         for(var i=0 in answers){
-            var count = count(answers[i]);
+            var value = count(answers[i]);
             answer_model.findByIdAndUpdate(answers[i]._id,{
-                $set: {value: count}
+                $set: {value: value}
             }, {new: true}, function (err) {
                 if (err) res.send(err);
                 else{
