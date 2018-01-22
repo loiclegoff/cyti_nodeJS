@@ -7,7 +7,8 @@ var database = require('../../config/database');
 var user_model = require('../models/schema_user');
 var cadeaux_model = require('../models/cadeaux');
 var survey_model = require('../models/survey');
-
+var answer_user_model = require('../models/schema_answers_user');
+var answer_model = require('../models/answer');
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
 
@@ -134,19 +135,24 @@ exports.check_user = function(req, res, next){
 
 exports.updates_after_survey = function(req, res){
 
-    /*user_model.findById(req.body.id_user, function(err, user) {
-        if (err) res.status(500).send(err);
-        else {
-            var points_user = user.points + 50;
-            user_model.findByIdAndUpdate(req.body.id_user, {$push: {surveys: req.params.id_survey},
-                $set: {points: points_user}}, {new: true}, function (err, user) {
-                    if (err) res.send(err);
-                    else {
-                        console.log("new update point: " + user.points + " surveys_array : " + user.surveys);
-                    }
-                });
+    function count(id_answer){
+        answer_user_model.find({'id_answer': id_answer}).exec(function (err, results) {
+            console.log(results.length);
+            return  results.length;
+        });
+    }
+
+    answer_model.find({'id_survey': req.params.id_survey}, function(err, answers) {
+        for(var i=0 in answers){
+            answer_model.findByIdAndUpdate(answers[i]._id,{
+                $set: {value: count(answers[i])}
+            }, {new: true}, function (err) {
+                if (err) res.send(err);
+            });
         }
-    });*/
+    });
+
+
     survey_model.findById(req.params.id_survey, function(err, survey){
         if(err) res.status(500).send(err);
         else{

@@ -14,7 +14,8 @@ var answerSchema = new Schema({
     id_question: Schema.Types.ObjectId,
     id_survey: Schema.Types.ObjectId,
     position: Number,
-    txt: String
+    txt: String,
+    value:{ type: Number, default: 0 }
     },
     { versionKey: false
     });

@@ -63,4 +63,4 @@ router.delete('/survey/delete_question', question_answer_controller.delete_quest
 router.post('/survey/update', survey_controller.update_survey);
 module.exports = router;
 
-router.post('/test', survey_controller.json_file_stats);
+//router.get('/test', survey_controller.json_file_stats);
