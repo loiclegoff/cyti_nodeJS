@@ -6,9 +6,11 @@ var database = require('../../config/database');
 var survey_model = require('../models/survey');
 var question_model = require('../models/question');
 var answer_model = require('../models/answer');
-var answer_user = require('../models/schema_answers_user');
 var user_model = require('../models/schema_user');
-var json_parsing = require('../../parsing_json');
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+
 
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
@@ -34,24 +36,40 @@ exports.list_all = function(req, res){
  * @param res
  */
 exports.new_survey = function(req, res) {
-    /*var picture;
-    switch (req.body.theme) {
-        case 'sport':
-            picture= "Sunday";
-            break;
-        case 1:
-            day = "Monday";
-            break;
-        case 2:
-            day = "Tuesday";
-            break;
-        case 3:
-            day = "Wednesday";
-            break;
-        case 4:*/
+
+    var picture = req.body.url;
+
+    if(picture !== "undefined" ){
+        picture= '../../public/images/' + sanitize(req.body.id_survey)  + "_" + Date.now() +'.jpg';
+        download(req.body.url, picture , function(err){
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log('Download Done !');
+        });
+    }else{
+        switch (req.body.theme) {
+            case 'sport':
+                picture = "../../public/images/theme_sport_default.jpg";
+                break;
+            case 'beauty':
+                picture = "../../public/images/theme_beauty_default.jpg";
+                break;
+            case 'fashion':
+                picture = "../../public/images/theme_fashion_default.jpg";
+                break;
+            case 'shopping':
+                picture = "../../public/images/theme_shopping_default.jpg";
+                break;
+        }
+    }
+
     function randomIntInc (low, high) {
         return Math.floor(Math.random() * (high - low + 1) + low);
     }
+
+
 
     var survey = {
         _id: req.body.id_survey,
@@ -61,7 +79,7 @@ exports.new_survey = function(req, res) {
         theme: sanitize(req.body.theme),
         status: "offline",
         points: randomIntInc(20,100),
-        //picture_url: picture,
+        picture_url: picture,
         duration: ""
     };
     console.log(survey);
@@ -260,5 +278,50 @@ exports.json_file_stats = function(req, res) {
         });
 };
 
+function download(url, dest, cb) {
+    // on créé un stream d'écriture qui nous permettra
+    // d'écrire au fur et à mesure que les données sont téléchargées
+    const file = fs.createWriteStream(dest);
+    var httpMethod;
+
+    // afin d'utiliser le bon module on vérifie si notre url
+    // utilise http ou https
+    if (url.indexOf(('https://')) !== -1) httpMethod = https;
+    else httpMethod = http;
+
+    // on lance le téléchargement
+    const request = httpMethod.get(url, function (response) {
+        // on vérifie la validité du code de réponse HTTP
+        if (response.statusCode !== 200) {
+            return cb('Response status was ' + response.statusCode);
+        }
+
+        // écrit directement le fichier téléchargé
+        response.pipe(file);
+
+        // lorsque le téléchargement est terminé
+        // on appelle le callback
+        file.on('finish', function () {
+            // close étant asynchrone,
+            // le cb est appelé lorsque close a terminé
+            file.close(cb);
+        });
+    });
+
+    // check for request error too
+    request.on('error', function (err) {
+        fs.unlink(dest);
+        cb(err.message);
+    });
+
+    // si on rencontre une erreur lors de l'écriture du fichier
+    // on efface le fichier puis on passe l'erreur au callback
+    file.on('error', function (err) {
+        // on efface le fichier sans attendre son effacement
+        // on ne vérifie pas non plus les erreur pour l'effacement
+        fs.unlink(dest);
+        cb(err.message);
+    });
+}
 
 
